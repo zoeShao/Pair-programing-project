@@ -5,12 +5,12 @@ public class MargheritaPizza extends AbstractPizza {
     public static class MargheritaPizzaBuilder extends AbstractPizzaBuilder{
         public MargheritaPizzaBuilder prepare(){
             // test builder
-            System.out.print("Prepared margherita pizza successful.");
+            System.out.println("Prepared margherita pizza successful.");
             return this;
         }
         public MargheritaPizza build(){
             // test builder
-            System.out.print("MargheritaPizza");
+            System.out.println("MargheritaPizza");
             return new MargheritaPizza();
         }
     }

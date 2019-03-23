@@ -6,12 +6,12 @@ public class PepperoniPizza extends AbstractPizza {
     public static class PepperoniPizzaBuilder extends AbstractPizzaBuilder{
         public PepperoniPizzaBuilder prepare(){
             // test builder
-            System.out.print("Prepared pepperoni pizza successful.");
+            System.out.println("Prepared pepperoni pizza successful.");
             return this;
         }
         public PepperoniPizza build(){
             // test builder
-            System.out.print("PepperoniPizza");
+            System.out.println("PepperoniPizza");
             return new PepperoniPizza();
         }
     }

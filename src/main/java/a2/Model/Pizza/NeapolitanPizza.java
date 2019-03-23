@@ -5,12 +5,12 @@ public class NeapolitanPizza extends AbstractPizza {
     public static class NeapolitanPizzaBuilder extends AbstractPizzaBuilder{
         public NeapolitanPizzaBuilder prepare(){
             // test builder
-            System.out.print("Prepared neapolitan pizza successful.");
+            System.out.println("Prepared neapolitan pizza successful.");
             return this;
         }
         public NeapolitanPizza build(){
             // test builder
-            System.out.print("NeapolitanPizza");
+            System.out.println("NeapolitanPizza");
             return new NeapolitanPizza();
         }
     }
