@@ -18,4 +18,12 @@ public abstract class AbstractPizza implements Pizza{
     public void setToppings(List<String> newToppings){
         this.toppings = newToppings;
     }
+
+    public AbstractPizza(){}
+
+    // Abstract Builder for Pizza
+    public static abstract class AbstractPizzaBuilder {
+        public abstract AbstractPizzaBuilder prepare();
+        public abstract AbstractPizza build();
+    }
 }
