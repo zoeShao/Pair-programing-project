@@ -1,4 +1,10 @@
 package a2.Model.PizzaFactory;
 
-public class MargheritaPizzaFactory {
+import a2.Model.Pizza.MargheritaPizza;
+import a2.Model.Pizza.Pizza;
+
+public class MargheritaPizzaFactory implements PizzaFactory{
+    public Pizza getPizza() {
+        return new MargheritaPizza.MargheritaPizzaBuilder().prepare().build();
+    }
 }
