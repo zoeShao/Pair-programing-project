@@ -77,6 +77,7 @@ public class OrderMaker {
             System.out.println("Do you want to add more toppings? " +
                     "Please enter " + toppingOption + ":<quantity of the topping>");
             System.out.println("e.g. Pepperoni:3");
+            System.out.println(ExitInstruction);
             option = scanner.nextLine();
             List<String> toppingToQuantity;
             while ((toppingToQuantity = Handler.inputParser(option, AllData.allToppings)) == null) {

@@ -83,28 +83,36 @@ public class Handler {
 
     public static List<String> inputParser(String input, Set<String> options) {
         String optionMessage = Handler.convertSetToString(options);
+        if (input.equals("Exit")){
+            System.exit(0);
+        }
         if (!input.contains(":")) {
             System.out.println("Invalid input. Please separate topping and quantity by :");
+            System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         String[] parts = input.split(":");
         if (parts.length != 2) {
             System.out.println("Invalid input." + "Please enter " + optionMessage + ":<quantity>");
+            System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         String topping = parts[0];
         if (!options.contains(topping)) {
             System.out.println("Invalid topping." + "Please enter " + optionMessage + ":<quantity>");
+            System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         try{
             Integer quantity = Integer.parseInt(parts[1]);
             if (quantity < 0) {
                 System.out.println("Invalid input. Please enter a positive integer as quantity.");
+                System.out.println("If you want to exit the program, please enter Exit");
                 return null;
             }
         } catch (Exception e) {
             System.out.println("Invalid input. Please enter a integer as quantity.");
+            System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         List<String> paresedOutput = new ArrayList<String>();
