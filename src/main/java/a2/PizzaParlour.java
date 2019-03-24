@@ -1,8 +1,6 @@
 package a2;
-import a2.Model.Drink;
 import a2.Model.Order;
 import a2.Model.Pizza;
-import com.sun.tools.corba.se.idl.constExpr.Or;
 
 import java.util.*;
 
