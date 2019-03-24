@@ -122,19 +122,25 @@ public class Handler {
     }
 
     public static List<String> pizzaPriceInputParser(String sizeAndType) {
+        if (sizeAndType.equals("Exit")){
+            System.exit(0);
+        }
         String[] parts = sizeAndType.split(" ");
         if (parts.length != 2) {
             System.out.println("Invalid input. Please enter like this: Small Pepperoni");
+            System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         String type = parts[1];
         if (!Pizza.pizzaTypeToRecipe.keySet().contains(type)){
             System.out.println("Invalid type: " + type + ". Please try again.");
+            System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         String size = parts[0];
         if (!AllData.allSizes.contains(size)) {
             System.out.println("size must be Small/Medium/Large. Please try again.");
+            System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         List<String> parsedOutput = new ArrayList<String>();
