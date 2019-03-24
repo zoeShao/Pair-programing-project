@@ -41,7 +41,13 @@ public class PizzaParlour {
                     System.out.println("Order");
                     Order myOrder = new Order();
                     OrderMaker.makeOrder(scanner, myOrder);
-                    System.out.println(myOrder);
+                    if (myOrder.getTotalPrice() == 0.0) {
+                        System.out.println("You haven't ordered anything. Please try again.");
+                    } else {
+                        System.out.println("Order Submitted!!!");
+                        System.out.println("==========Here is your order==========");
+                        System.out.println(myOrder);
+                    }
                 }
                 System.out.println(orderMessgae);
                 System.out.println(menuMessage);

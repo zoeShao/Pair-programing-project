@@ -32,6 +32,10 @@ public class Order {
 
     }
 
+    public double getTotalPrice(){
+        return this.totalPrice;
+    }
+
     public double calculateTotalPrice() {
         for (Pizza pizza: this.pizzaList) {
             this.totalPrice += pizzaTypeToSizeToPrice.get(pizza.getType()).get(pizza.getSize());

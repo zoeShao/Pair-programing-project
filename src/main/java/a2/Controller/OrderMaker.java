@@ -42,8 +42,6 @@ public class OrderMaker {
             System.out.println(MenuInstruction + ExitInstruction);
         }
         myOrder.calculateTotalPrice();
-        System.out.println("Order Submitted.");
-
     }
 
     private static void orderPizza(Scanner scanner, Order myOrder) {
