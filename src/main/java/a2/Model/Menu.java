@@ -13,7 +13,7 @@ public class Menu {
                 String sizeAndType = size + " " + type;
                 fullMenu.append("        ")
                         .append(size)
-                        .append("  ====================================  ")
+                        .append("  =====================================  ")
                         .append(Menu.getPizzaPrice(sizeAndType))
                         .append("\n");
             }
@@ -23,7 +23,7 @@ public class Menu {
         for (String topping: Order.toppingToPrice.keySet()) {
             fullMenu.append("    ")
                     .append(topping)
-                    .append("  ====================================  ")
+                    .append("  =====================================  ")
                     .append(Menu.getToppingPrice(topping))
                     .append("\n");
         }
@@ -32,7 +32,7 @@ public class Menu {
         for (String name: Order.drinkToPrice.keySet()) {
             fullMenu.append("    ")
                     .append(name)
-                    .append("  ====================================  ")
+                    .append("  =====================================  ")
                     .append(Menu.getDrinkPrice(name))
                     .append("\n");
         }
