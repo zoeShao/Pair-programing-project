@@ -38,7 +38,9 @@ public class PizzaParlour {
                     System.out.println(startMessage);
                 } else if (option.equals("Order")) {
                     System.out.println("Order");
-                    OrderMaker.makeOrder(scanner);
+                    Order myOrder = new Order();
+                    OrderMaker.makeOrder(scanner, myOrder);
+                    System.out.println(myOrder);
 //                    Pizza.PizzaBuilder builder = new Pizza.PizzaBuilder();
 //                    builder.setSize("Small");
 //                    builder.setType("Pepperoni");
