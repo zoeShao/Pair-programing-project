@@ -12,6 +12,7 @@ public class Pizza {
     private Map<String, Integer> toppingToQuantity;
     public static Map<String, String> pizzaTypeToRecipe;
     public static Set<String> allToppings;
+    public static Set<String> allSizes;
 
     // Builder for Pizza
     public static class PizzaBuilder {
@@ -20,7 +21,7 @@ public class Pizza {
         private Map<String, Integer> toppingToQuantity = new HashMap<String, Integer>();
 
         public PizzaBuilder setSize(String size){
-            if (!size.equals("Small") & !size.equals("Medium") & !size.equals("Large")) {
+            if (!allSizes.contains(size)) {
                 throw new IllegalArgumentException("size must be Small/Medium/Large. Please try again.");
             }
             this.size = size;

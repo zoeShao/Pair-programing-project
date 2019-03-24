@@ -1,5 +1,7 @@
 package a2.Controller;
 
+import a2.Model.Order;
+import a2.Model.Pizza;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
@@ -7,10 +9,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ParlourFileReader {
-    public static Map<String, String> readPizzaRecipe(String fileName){
+    public static void readPizzaRecipe(String fileName){
         Map<String, String> typeToRecipe = new HashMap<String, String>();
         String line = null;
         try {
@@ -43,10 +47,11 @@ public class ParlourFileReader {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        return typeToRecipe;
+        Pizza.pizzaTypeToRecipe = typeToRecipe;
+//        return typeToRecipe;
     }
 
-    public static Map<String, Map<String, Double>> readPizzaTypeSizePrice(String fileName){
+    public static void readPizzaTypeSizePrice(String fileName){
 
         Map<String, Map<String, Double>> pizzaTypeToSizeToPrice = new HashMap<String, Map<String, Double>>();
 
@@ -57,6 +62,7 @@ public class ParlourFileReader {
             String [] sizes;
             if ((nextLine = reader.readNext()) != null) {
                 sizes = nextLine;
+                updatePizzaSizes(sizes);
                 while ((nextLine = reader.readNext()) != null) {
                     pizzaTypeToSizeToPrice.put(nextLine[0], sizeToPrice(sizes, nextLine));
                 }
@@ -73,10 +79,11 @@ public class ParlourFileReader {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        return pizzaTypeToSizeToPrice;
+        Order.pizzaTypeToSizeToPrice = pizzaTypeToSizeToPrice;
+//        return pizzaTypeToSizeToPrice;
     }
 
-    public static Map<String, Double> readDrinkPrice(String fileName) {
+    public static void readDrinkPrice(String fileName) {
         Map<String, Double> drinkToPrice = new HashMap<String, Double>();
 
         try {
@@ -100,10 +107,12 @@ public class ParlourFileReader {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        return drinkToPrice;
+        Order.drinkToPrice = drinkToPrice;
+        Order.allDrinks = drinkToPrice.keySet();
+//        return drinkToPrice;
     }
 
-    public static Map<String, Double> readToppingPrice(String fileName) {
+    public static void readToppingPrice(String fileName) {
         Map<String, Double> toppingToPrice = new HashMap<String, Double>();
 
         try {
@@ -127,7 +136,9 @@ public class ParlourFileReader {
             // Or we could just do this:
             // ex.printStackTrace();
         }
-        return toppingToPrice;
+        Order.toppingToPrice = toppingToPrice;
+        Pizza.allToppings = toppingToPrice.keySet();
+//        return toppingToPrice;
     }
 
     private static Map<String, Double> sizeToPrice(String [] sizeList, String [] priceList) {
@@ -136,5 +147,14 @@ public class ParlourFileReader {
             sizeToPrice.put(sizeList[i], Double.parseDouble(priceList[i]));
         }
         return sizeToPrice;
+    }
+
+    private static void updatePizzaSizes(String [] sizes) {
+        Set<String> allSizes = new HashSet<String>();
+        for (int i = 1; i < sizes.length; i++) {
+//            System.out.println(sizes[i]);
+            allSizes.add(sizes[i]);
+        }
+        Pizza.allSizes = allSizes;
     }
 }

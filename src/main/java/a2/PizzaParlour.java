@@ -1,4 +1,5 @@
 package a2;
+import a2.Controller.OrderMaker;
 import a2.Controller.ParlourFileReader;
 import a2.Model.Order;
 import a2.Model.Pizza;
@@ -10,12 +11,16 @@ public class PizzaParlour {
     public static void main(String[] args) {
         String filePath = "src/main/Files/";
         // Generates pizzaTypeToRecipe Map
-        Order.pizzaTypeToSizeToPrice = ParlourFileReader.readPizzaTypeSizePrice(filePath + "PizzaTypeSizePrice.csv");
-        Order.drinkToPrice = ParlourFileReader.readDrinkPrice(filePath + "DrinkPrice.csv");
-        Order.toppingToPrice = ParlourFileReader.readToppingPrice(filePath + "ToppingPrice.csv");
-        Order.allDrinks = Order.drinkToPrice.keySet();
-        Pizza.pizzaTypeToRecipe = ParlourFileReader.readPizzaRecipe(filePath + "Recipes.txt");
-        Pizza.allToppings = Order.toppingToPrice.keySet();
+//        Order.pizzaTypeToSizeToPrice = ParlourFileReader.readPizzaTypeSizePrice(filePath + "PizzaTypeSizePrice.csv");
+        ParlourFileReader.readPizzaTypeSizePrice(filePath + "PizzaTypeSizePrice.csv");
+//        Order.drinkToPrice = ParlourFileReader.readDrinkPrice(filePath + "DrinkPrice.csv");
+        ParlourFileReader.readDrinkPrice(filePath + "DrinkPrice.csv");
+//        Order.toppingToPrice = ParlourFileReader.readToppingPrice(filePath + "ToppingPrice.csv");
+//        Order.allDrinks = Order.drinkToPrice.keySet();
+        ParlourFileReader.readToppingPrice(filePath + "ToppingPrice.csv");
+//        Pizza.pizzaTypeToRecipe = ParlourFileReader.readPizzaRecipe(filePath + "Recipes.txt");
+        ParlourFileReader.readPizzaRecipe(filePath + "Recipes.txt");
+//        Pizza.allToppings = Order.toppingToPrice.keySet();
 
         String startMessage = "If you want to see the menu, please enter Menu.\n"
                 + "If you want to make an order, please enter Order.\n"
@@ -33,19 +38,20 @@ public class PizzaParlour {
                     System.out.println(startMessage);
                 } else if (option.equals("Order")) {
                     System.out.println("Order");
-                    Pizza.PizzaBuilder builder = new Pizza.PizzaBuilder();
-                    builder.setSize("Small");
-                    builder.setType("Pepperoni");
-                    builder.updateToppings("Tomatoes", 3);
-                    builder.updateToppings("Olives", 9);
-                    builder.updateToppings("Tomatoes", 0);
-                    Pizza p = builder.build();
-                    Order order = new Order();
-                    order.addPizza(p);
-                    order.updateDrink("Pepsi", 3);
-                    order.updateDrink("Coke", 4);
-                    order.calculateTotalPrice();
-                    System.out.println(order);
+                    OrderMaker.makeOrder(scanner);
+//                    Pizza.PizzaBuilder builder = new Pizza.PizzaBuilder();
+//                    builder.setSize("Small");
+//                    builder.setType("Pepperoni");
+//                    builder.updateToppings("Tomatoes", 3);
+//                    builder.updateToppings("Olives", 9);
+//                    builder.updateToppings("Tomatoes", 0);
+//                    Pizza p = builder.build();
+//                    Order order = new Order();
+//                    order.addPizza(p);
+//                    order.updateDrink("Pepsi", 3);
+//                    order.updateDrink("Coke", 4);
+//                    order.calculateTotalPrice();
+//                    System.out.println(order);
 //                    System.out.println("Would you like to pick up, or make a delivery order?: ");
 
                 } else {
