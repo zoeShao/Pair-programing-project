@@ -1,4 +1,5 @@
 package a2;
+import a2.Controller.ParlourFileReader;
 import a2.Model.Order;
 import a2.Model.Pizza;
 
@@ -12,10 +13,10 @@ public class PizzaParlour {
         allToppings.add("tomatoes");
         allToppings.add("olives");
         Pizza.allToppings = allToppings;
-        Map<String, String> allRecipes = new HashMap<String, String>();
-        allRecipes.put("Pepperoni", "Hi");
-        allRecipes.put("Margherita", "Oh");
-        Pizza.pizzaTypeToRecipe = allRecipes;
+//        Map<String, String> allRecipes = new HashMap<String, String>();
+//        allRecipes.put("Pepperoni", "Hi");
+//        allRecipes.put("Margherita", "Oh");
+//        Pizza.pizzaTypeToRecipe = allRecipes;
         List drinks = new ArrayList<String>();
         drinks.add("coke");
         drinks.add("soda");
@@ -37,8 +38,8 @@ public class PizzaParlour {
         drinkToPrice.put("soda", 2.0);
         Order.drinkToPrice = drinkToPrice;
 
-
-
+        Pizza.pizzaTypeToRecipe = ParlourFileReader.readPizzaRecipe("src/main/Files/Recipes.txt");
+//        System.out.println(Pizza.pizzaTypeToRecipe);
 
         System.out.println("Welcome to 301 Pizza!: ");
         System.out.println("Would you like to order in, or make a delivery order?: ");
@@ -52,8 +53,8 @@ public class PizzaParlour {
             builder.updateToppings("olives", 9);
             builder.updateToppings("tomatoes", 0);
             Pizza p = builder.build();
-            System.out.println(p.getRecipe());
-            System.out.println(p);
+//            System.out.println(p.getRecipe());
+//            System.out.println(p);
 //            Drink d = new Drink("soda");
 //            System.out.println(d);
 //            Drink dk = new Drink("sod");
