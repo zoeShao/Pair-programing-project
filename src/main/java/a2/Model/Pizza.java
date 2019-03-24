@@ -3,6 +3,7 @@ package a2.Model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Pizza {
     private String size;
@@ -10,7 +11,7 @@ public class Pizza {
     private String recipe;  // specific method of preparation
     private Map<String, Integer> toppingToQuantity;
     public static Map<String, String> pizzaTypeToRecipe;
-    public static List<String> allToppings;
+    public static Set<String> allToppings;
 
     // Builder for Pizza
     public static class PizzaBuilder {

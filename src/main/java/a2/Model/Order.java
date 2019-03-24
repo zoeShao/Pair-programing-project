@@ -6,7 +6,7 @@ public class Order {
     private Integer orderNum;
     private List<Pizza> pizzaList;
     private Map<String, Integer> drinkToQuantity;
-    public static List<String> allDrinks;
+    public static Set<String> allDrinks;
     public static Map<String, Map<String, Double>> pizzaTypeToSizeToPrice;
     public static Map<String, Double> toppingToPrice;
     public static Map<String, Double> drinkToPrice;
