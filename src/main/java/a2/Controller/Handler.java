@@ -39,6 +39,29 @@ public class Handler {
             case 5:
                 validInput.add("Menu");
                 validInput.add("Order");
+            case 6:
+                validInput.add("Full");
+                validInput.add("Item");
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                break;
+            case 7:
+                validInput.add("Pizza");
+                validInput.add("Topping");
+                validInput.add("Drink");
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                break;
+            case 8:
+                validInput.addAll(AllData.allToppings);
+                // version #1 (If use version #2, just comment it out the line below.)
+                validInput.add("End");
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                break;
+            case 9:
+                validInput.addAll(AllData.allDrinks);
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                // version #1 (If use version #2, just comment it out the line below.)
+                validInput.add("End");
+                break;
             default:
                 errorMessage = "Invalid flag.";
         }
@@ -88,5 +111,27 @@ public class Handler {
         paresedOutput.add(parts[0]);
         paresedOutput.add(parts[1]);
         return paresedOutput;
+    }
+
+    public static List<String> pizzaPriceInputParser(String sizeAndType) {
+        String[] parts = sizeAndType.split(" ");
+        if (parts.length != 2) {
+            System.out.println("Invalid input. Please enter like this: Small Pepperoni");
+            return null;
+        }
+        String type = parts[1];
+        if (!Pizza.pizzaTypeToRecipe.keySet().contains(type)){
+            System.out.println("Invalid type: " + type + ". Please try again.");
+            return null;
+        }
+        String size = parts[0];
+        if (!AllData.allSizes.contains(size)) {
+            System.out.println("size must be Small/Medium/Large. Please try again.");
+            return null;
+        }
+        List<String> parsedOutput = new ArrayList<String>();
+        parsedOutput.add(parts[0]);
+        parsedOutput.add(parts[1]);
+        return parsedOutput;
     }
 }

@@ -36,6 +36,7 @@ public class PizzaParlour {
         while (!option.equals("Exit")) {
             try {
                 if (option.equals("Menu")) {
+                    OrderMaker.readMenu(scanner);
                     System.out.println("Menu");
                 } else if (option.equals("Order")) {
                     System.out.println("Order");
@@ -44,9 +45,11 @@ public class PizzaParlour {
                     if (myOrder.getTotalPrice() == 0.0) {
                         System.out.println("You haven't ordered anything. Please try again.");
                     } else {
-                        System.out.println("Order Submitted!!!");
+//                        System.out.println("Order Submitted!!!");
+//                        System.out.println("[Notice]: Order Submitted!!!");
                         System.out.println("==========Here is your order==========");
                         System.out.println(myOrder);
+                        System.out.println("[Notice]: Order Submitted Successfully!!!");
                     }
                 }
                 System.out.println(orderMessgae);

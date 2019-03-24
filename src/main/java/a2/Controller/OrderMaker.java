@@ -1,6 +1,7 @@
 package a2.Controller;
 
 import a2.Model.AllData;
+import a2.Model.Menu;
 import a2.Model.Order;
 import a2.Model.Pizza;
 
@@ -24,22 +25,23 @@ public class OrderMaker {
 
         System.out.println("What else do you want to order? Please enter Pizza or Drink.\n"
                 + "If you want to place the order, please enter Submit");
-        System.out.println(MenuInstruction + ExitInstruction);
+        System.out.println(MenuInstruction + "\n" + ExitInstruction);
         while (!(option = Handler.inputChecker(scanner, 0)).equals("Submit")) {
             if (option.equals("Menu")) {
+                readMenu(scanner);
                 System.out.println("Menu");
             } else if (option.equals("Pizza")) {
                 orderPizza(scanner, myOrder);
 
             } else if (option.equals("Drink")) {
-                orderDrink(scanner,myOrder);
+                orderDrink(scanner, myOrder);
 
             } else if (option.equals("Exit")) {
                 System.exit(0);
             }
             System.out.println("What else do you want to order? Please enter Pizza or Drink.\n"
                     + "If you want to place the order, please enter Submit");
-            System.out.println(MenuInstruction + ExitInstruction);
+            System.out.println(MenuInstruction + "\n" + ExitInstruction);
         }
         myOrder.calculateTotalPrice();
     }
@@ -89,36 +91,215 @@ public class OrderMaker {
         if (option.equals("No")) {
             Pizza newPizza = pizzaBuilder.build();
             myOrder.addPizza(newPizza);
-            System.out.println("This pizza order is completed.");
+//            System.out.println("This pizza order is completed.");
+            System.out.println("[Notice]: You have added a pizza to cart.");
         } else if (option.equals("Exit")) {
             System.exit(0);
         }
     }
 
     private static void orderDrink(Scanner scanner, Order myOrder) {
+        //    version #1
         String drinkOption = Handler.convertSetToString(AllData.allDrinks);
-        System.out.println("Do you want to add any drinks? Please enter Yes/No.");
+        System.out.println("Please enter " + drinkOption + ":<quantity of the drink>");
+        System.out.println("e.g. Coke:5");
         System.out.println(ExitInstruction);
-        String option = Handler.inputChecker(scanner, 4);
-        while (option.equals("Yes")) {
-            System.out.println("Please enter " + drinkOption + ":<quantity of the drink>");
-            System.out.println("e.g. Coke:5");
+        String option = scanner.nextLine();
+        List<String> drinkToQuantity;
+        if (option.equals("Exit")) {
+            System.exit(0);
+        }
+        while ((drinkToQuantity = Handler.inputParser(option, AllData.allDrinks)) == null) {
             option = scanner.nextLine();
-            List<String> drinkToQuantity;
-            while ((drinkToQuantity = Handler.inputParser(option, AllData.allDrinks)) == null) {
-                option = scanner.nextLine();
-            }
-            myOrder.updateDrink(drinkToQuantity.get(0), Integer.parseInt(drinkToQuantity.get(1)));
+        }
+        myOrder.updateDrink(drinkToQuantity.get(0), Integer.parseInt(drinkToQuantity.get(1)));
+        System.out.println("[Notice]: You have added the drink(s) to cart.");
 
-            System.out.println("Do you want to add any drinks? Please enter Yes/No.");
+        //    version #2
+//        System.out.println("Do you want to add any drinks? Please enter Yes/No.");
+//        System.out.println(ExitInstruction);
+//        String option = Handler.inputChecker(scanner, 4);
+//        while (option.equals("Yes")) {
+//            System.out.println("Please enter " + drinkOption + ":<quantity of the drink>");
+//            System.out.println("e.g. Coke:5");
+//            option = scanner.nextLine();
+//            List<String> drinkToQuantity;
+//            while ((drinkToQuantity = Handler.inputParser(option, AllData.allDrinks)) == null) {
+//                option = scanner.nextLine();
+//            }
+//            myOrder.updateDrink(drinkToQuantity.get(0), Integer.parseInt(drinkToQuantity.get(1)));
+//
+//            System.out.println("Do you want to add any drinks? Please enter Yes/No.");
+//            System.out.println(ExitInstruction);
+//            option = Handler.inputChecker(scanner, 4);
+//        }
+//        if (option.equals("No")) {
+//            System.out.println("Drinks order is completed.");
+//        } else if (option.equals("Exit")) {
+//            System.exit(0);
+//        }
+    }
+
+
+    //    version #1
+    public static void readMenu(Scanner scanner) {
+        System.out.println("Do you want to see the full menu or the price of a specific item? Please enter Full/Item.");
+        System.out.println(ExitInstruction);
+        String option = Handler.inputChecker(scanner, 6);
+        if (option.equals("Item")) {
+            readItemPrice(scanner);
+            System.out.println("Do you still want to see the price of a specific item? Please enter Yes/No.");
             System.out.println(ExitInstruction);
             option = Handler.inputChecker(scanner, 4);
+            if (option.equals("Exit")) {
+                System.exit(0);
+            }
+            while (option.equals("Yes")) {
+                readItemPrice(scanner);
+                System.out.println("Do you still want to see the price of a specific item? Please enter Yes/No.");
+                System.out.println(ExitInstruction);
+                option = Handler.inputChecker(scanner, 4);
+            }
         }
-        if (option.equals("No")) {
-            System.out.println("Drinks order is completed.");
+        if (option.equals("Full")) {
+            System.out.println(Menu.getFullMenu());
         } else if (option.equals("Exit")) {
             System.exit(0);
         }
     }
+
+
+    private static void readItemPrice(Scanner scanner) {
+        String toppingOption = Handler.convertSetToString(AllData.allToppings);
+        String drinkOption = Handler.convertSetToString(AllData.allDrinks);
+        System.out.println("Which type of item's price do you want to see? Please enter Pizza/Topping/Drink.");
+        System.out.println(ExitInstruction);
+        String option = Handler.inputChecker(scanner, 7);
+
+        if (option.equals("Pizza")) {
+            System.out.println("Which type of pizza's price do you want to see? Please enter <size type>.");
+            System.out.println("e.g. Medium Neapolitan");
+            System.out.println(ExitInstruction);
+            option = scanner.nextLine();
+            if (option.equals("Exit")) {
+                System.exit(0);
+            }
+            List<String> sizeToType;
+            while ((sizeToType = Handler.pizzaPriceInputParser(option)) == null) {
+                option = scanner.nextLine();
+            }
+            String sizeAndType = sizeToType.get(0) + " " + sizeToType.get(1);
+            System.out.println(sizeAndType +  "Pizza's price is: " + Menu.getPizzaPrice(sizeAndType));
+
+        } else if (option.equals("Topping")) {
+            System.out.println("Enter one of " + toppingOption +
+                    " to see the price of the topping.\n" +
+                    "If you wish to quite, just enter End.");
+            System.out.println(ExitInstruction);
+            option = Handler.inputChecker(scanner, 8);
+            while (!option.equals("End")) {
+                if (AllData.allToppings.contains(option)) {
+                    System.out.println(option + "'s Price is: " + Menu.getToppingPrice(option));
+                } else if (option.equals("Exit")) {
+                    System.exit(0);
+                }
+                System.out.println("(You can only enter one of them: <topping name> or End or Exit)");
+                option = Handler.inputChecker(scanner, 8);
+            }
+
+        } else if (option.equals("Drink")) {
+            System.out.println("Enter one of " + drinkOption +
+                    " to see the price of the drink.\n" +
+                    "If you wish to quite, just enter End.");
+            System.out.println(ExitInstruction);
+            option = Handler.inputChecker(scanner, 9);
+            while (!option.equals("End")) {
+                if (AllData.allDrinks.contains(option)) {
+                    System.out.println(option + "'s Price is: " + Menu.getDrinkPrice(option));
+                } else if (option.equals("Exit")) {
+                    System.exit(0);
+                }
+                System.out.println("(You can only enter one of them: <drink name> or End or Exit)");
+                option = Handler.inputChecker(scanner, 9);
+            }
+        } else {
+            System.exit(0);
+        }
+    }
+
+
+
+
+//    version #2
+
+//    public static void readMenu(Scanner scanner) {
+//        System.out.println("Do you want to see the full menu or the price of a specific item? Please enter Full/Item.");
+//        System.out.println(ExitInstruction);
+//        String option = Handler.inputChecker(scanner, 6);
+//        if (option.equals("Item")) {
+//            readItemPrice(scanner);
+//            System.out.println("Do you still want to see the price of a specific item? Please enter Yes/No.");
+//            System.out.println(ExitInstruction);
+//            option = Handler.inputChecker(scanner, 4);
+//            if (option.equals("Exit")) {
+//                System.exit(0);
+//            }
+//            while (option.equals("Yes")) {
+//                readItemPrice(scanner);
+//                System.out.println("Do you still want to see the price of a specific item? Please enter Yes/No.");
+//                System.out.println(ExitInstruction);
+//                option = Handler.inputChecker(scanner, 4);
+//            }
+//        }
+//        if (option.equals("Full")) {
+//            System.out.println(Menu.getFullMenu());
+//        } else if (option.equals("Exit")) {
+//            System.exit(0);
+//        }
+//    }
+//
+//
+//    private static void readItemPrice(Scanner scanner) {
+//        String toppingOption = Handler.convertSetToString(AllData.allToppings);
+//        String drinkOption = Handler.convertSetToString(AllData.allDrinks);
+//        System.out.println("Which type of item's price do you want to see? Please enter Pizza/Topping/Drink.");
+//        System.out.println(ExitInstruction);
+//        String option = Handler.inputChecker(scanner, 7);
+//        if (option.equals("Pizza")) {
+//            System.out.println("Which type of pizza's price do you want to see? Please enter <size type>.");
+//            System.out.println("e.g. Medium Neapolitan");
+//            System.out.println(ExitInstruction);
+//            option = scanner.nextLine();
+//            if (option.equals("Exit")) {
+//                System.exit(0);
+//            }
+//            List<String> sizeToType;
+//            while ((sizeToType = Handler.pizzaPriceInputParser(option)) == null) {
+//                option = scanner.nextLine();
+//            }
+//            String sizeAndType = sizeToType.get(0) + " " + sizeToType.get(1);
+//            System.out.println(sizeAndType +  "Pizza's price is: " + Menu.getPizzaPrice(sizeAndType));
+//        } else if (option.equals("Topping")) {
+//            System.out.println("Which topping's price do you want to see? Please enter " + toppingOption + ".");
+//            System.out.println(ExitInstruction);
+//            option = Handler.inputChecker(scanner, 8);
+//            if (AllData.allToppings.contains(option)) {
+//                System.out.println(option + "'s Price is: " + Menu.getToppingPrice(option));
+//            } else if (option.equals("Exit")) {
+//                System.exit(0);
+//            }
+//        } else if (option.equals("Drink")) {
+//            System.out.println("Which drink's price do you want to see? Please enter " + drinkOption + ".");
+//            System.out.println(ExitInstruction);
+//            option = Handler.inputChecker(scanner, 9);
+//            if (AllData.allDrinks.contains(option)) {
+//                System.out.println(option + "'s Price is: " + Menu.getDrinkPrice(option));
+//            } else if (option.equals("Exit")) {
+//                System.exit(0);
+//            }
+//        } else {
+//            System.exit(0);
+//        }
+//    }
 
 }
