@@ -15,9 +15,8 @@ public class OrderMaker {
         String option = inputChecker(scanner, 1);
         if (option.equals("Pizza")) {
             orderPizza(scanner, myOrder);
-            System.out.println("Pizza");
         } else if (option.equals("Drink")) {
-            System.out.println("Drink");
+            orderDrink(scanner,myOrder);
         } else if (option.equals("Exit")){
             System.exit(0);
         }
@@ -30,9 +29,10 @@ public class OrderMaker {
                 System.out.println("Menu");
             } else if (option.equals("Pizza")) {
                 orderPizza(scanner, myOrder);
-                System.out.println("Pizza");
+
             } else if (option.equals("Drink")) {
-                System.out.println("Drink");
+                orderDrink(scanner,myOrder);
+
             } else if (option.equals("Exit")) {
                 System.exit(0);
             }
@@ -100,7 +100,7 @@ public class OrderMaker {
         String option = inputChecker(scanner, 2);
         if (Pizza.allSizes.contains(option)) {
             pizzaBuilder.setSize(option);
-            System.out.println(option);
+
 
         } else if (option.equals("Exit")) {
             System.exit(0);
@@ -111,7 +111,7 @@ public class OrderMaker {
         option = inputChecker(scanner, 3);
         if (Pizza.pizzaTypeToRecipe.keySet().contains(option)) {
             pizzaBuilder.setType(option);
-            System.out.println(option);
+
 
         } else if (option.equals("Exit")) {
             System.exit(0);
@@ -126,11 +126,11 @@ public class OrderMaker {
             System.out.println("e.g. Pepperoni:3");
             option = scanner.nextLine();
             List<String> toppingToQuantity;
-            while ((toppingToQuantity = toppingInputParser(option)) == null) {
+            while ((toppingToQuantity = inputParser(option, Pizza.allToppings)) == null) {
                 option = scanner.nextLine();
             }
             pizzaBuilder.updateToppings(toppingToQuantity.get(0), Integer.parseInt(toppingToQuantity.get(1)));
-            System.out.println(toppingToQuantity);
+
             System.out.println("Do you want to add toppings? Please enter Yes/No.");
             System.out.println(ExitInstruction);
             option = inputChecker(scanner, 4);
@@ -144,6 +144,32 @@ public class OrderMaker {
         }
     }
 
+    private static void orderDrink(Scanner scanner, Order myOrder) {
+        String drinkOption = convertSetToString(Order.allDrinks);
+        System.out.println("Do you want to add any drinks? Please enter Yes/No.");
+        System.out.println(ExitInstruction);
+        String option = inputChecker(scanner, 4);
+        while (option.equals("Yes")) {
+            System.out.println("Please enter " + drinkOption + ":<quantity of the drink>");
+            System.out.println("e.g. Coke:5");
+            option = scanner.nextLine();
+            List<String> drinkToQuantity;
+            while ((drinkToQuantity = inputParser(option, Order.allDrinks)) == null) {
+                option = scanner.nextLine();
+            }
+            myOrder.updateDrink(drinkToQuantity.get(0), Integer.parseInt(drinkToQuantity.get(1)));
+
+            System.out.println("Do you want to add any drinks? Please enter Yes/No.");
+            System.out.println(ExitInstruction);
+            option = inputChecker(scanner, 4);
+        }
+        if (option.equals("No")) {
+            System.out.println("Drinks order is completed.");
+        } else if (option.equals("Exit")) {
+            System.exit(0);
+        }
+    }
+
     private static String convertSetToString(Set<String> inputSet) {
         StringBuilder outputMessage = new StringBuilder();
         for (String element: inputSet) {
@@ -152,31 +178,31 @@ public class OrderMaker {
         return outputMessage.substring(0, outputMessage.length()-1);
     }
 
-    private static List<String> toppingInputParser(String input) {
-        String toppingOption = convertSetToString(Pizza.allToppings);
+    private static List<String> inputParser(String input, Set<String> options) {
+        String optionMessage = convertSetToString(options);
         if (!input.contains(":")) {
             System.out.println("Invalid input. Please separate topping and quantity by :");
             return null;
         }
         String[] parts = input.split(":");
         if (parts.length != 2) {
-            System.out.println("Invalid input." + "Please enter " + toppingOption + ":<quantity of the topping>");
+            System.out.println("Invalid input." + "Please enter " + optionMessage + ":<quantity>");
             return null;
         }
         String topping = parts[0];
-        if (!Pizza.allToppings.contains(topping)) {
-            System.out.println("Invalid topping." + "Please enter " + toppingOption + ":<quantity of the topping>");
+        if (!options.contains(topping)) {
+            System.out.println("Invalid topping." + "Please enter " + optionMessage + ":<quantity>");
             return null;
         }
         try{
-            Integer quantity = Integer.parseInt(parts[1]);
-            List<String> paresedOutput = new ArrayList<String>();
-            paresedOutput.add(parts[0]);
-            paresedOutput.add(parts[1]);
-            return paresedOutput;
+            Integer.parseInt(parts[1]);
         } catch (Exception e) {
             System.out.println("Invalid input. Please enter a integer as quantity.");
             return null;
         }
+        List<String> paresedOutput = new ArrayList<String>();
+        paresedOutput.add(parts[0]);
+        paresedOutput.add(parts[1]);
+        return paresedOutput;
     }
 }
