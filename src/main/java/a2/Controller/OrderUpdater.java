@@ -21,6 +21,9 @@ public class OrderUpdater {
         if (option.equals("Pizza")) {
             updatePizza(scanner, myOrder);
         }
+        if (option.equals("Drink")) {
+            updateDrink(scanner, myOrder);
+        }
     }
 
     private static Integer pizzaNumberInputChecker(Scanner scanner) {
@@ -106,5 +109,16 @@ public class OrderUpdater {
             System.out.println("Your pizza has been confirmed. If you want to update anything else, " +
                     "please see the instructions below:");
         }
+    }
+
+    private static void updateDrink(Scanner scanner, Order myOrder) {
+        System.out.println("Which drink do you want to update? Please enter "
+                + Handler.convertSetToString(AllData.allDrinks) + ".");
+        System.out.println("Please use format: drink:quantity");
+        System.out.println("If you want to delete this drink, please enter drink:0");
+        System.out.println(exitMessage);
+        List<String> drinkToQuantity = Handler.getQuantity(scanner, 2);
+        myOrder.updateDrink(drinkToQuantity.get(0), Integer.parseInt(drinkToQuantity.get(1)));
+        System.out.println("This drink has been updated.");
     }
 }

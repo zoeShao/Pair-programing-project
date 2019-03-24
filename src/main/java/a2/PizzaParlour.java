@@ -64,6 +64,8 @@ public class PizzaParlour {
                         option = Handler.inputChecker(scanner, 10);
                         while (option.equals("Update")) {
                             OrderUpdater.updateOrder(scanner, myOrder);
+                            System.out.println("==========Here is your updated order==========");
+                            System.out.println(myOrder);
                             System.out.println(updateMessage);
                             System.out.println(confirmMessage);
                             System.out.println(cancelMessage);
@@ -77,6 +79,8 @@ public class PizzaParlour {
                             System.exit(0);
                         } else if (option.equals("Confirm")) {
                             System.out.println("Your order has been confirmed.");
+                            System.out.println("==========Here is your final order==========");
+                            System.out.println(myOrder);
                             System.out.println(deliveryMessage);
                             System.out.println(pickupMessage);
                             System.out.println(exitMessage);

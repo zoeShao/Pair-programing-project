@@ -79,11 +79,6 @@ public class OrderMaker {
                     "Please enter " + toppingOption + ":<quantity of the topping>");
             System.out.println("e.g. Pepperoni:3");
             System.out.println(ExitInstruction);
-//            option = scanner.nextLine();
-//            List<String> toppingToQuantity;
-//            while ((toppingToQuantity = Handler.inputParser(option, AllData.allToppings)) == null) {
-//                option = scanner.nextLine();
-//            }
             List<String> toppingToQuantity = Handler.getQuantity(scanner, 1);
             pizzaBuilder.updateToppings(toppingToQuantity.get(0), Integer.parseInt(toppingToQuantity.get(1)));
 
@@ -105,11 +100,6 @@ public class OrderMaker {
         System.out.println("Please enter " + drinkOption + ":<quantity of the drink>");
         System.out.println("e.g. Coke:5");
         System.out.println(ExitInstruction);
-//        String option = scanner.nextLine();
-//        List<String> drinkToQuantity;
-//        while ((drinkToQuantity = Handler.inputParser(option, AllData.allDrinks)) == null) {
-//            option = scanner.nextLine();
-//        }
         List<String> drinkToQuantity = Handler.getQuantity(scanner, 2);
         myOrder.updateDrink(drinkToQuantity.get(0), Integer.parseInt(drinkToQuantity.get(1)));
         System.out.println("[Notice]: You have added the drink(s) to cart.");
@@ -142,10 +132,6 @@ public class OrderMaker {
     }
 
     private static void readItemPrice(Scanner scanner) {
-//        String toppingOption = Handler.convertSetToString(AllData.allToppings);
-//        String drinkOption = Handler.convertSetToString(AllData.allDrinks);
-//        String sizeOption = Handler.convertSetToString(AllData.allSizes);
-//        String typeOption = Handler.convertSetToString(Pizza.pizzaTypeToRecipe.keySet());
         System.out.println("Which type of item's price do you want to see? Please enter Pizza/Topping/Drink.");
         System.out.println(ExitInstruction);
         String option = Handler.inputChecker(scanner, 7);
@@ -166,7 +152,6 @@ public class OrderMaker {
                 System.out.println(sizeAndType +  "Pizza's price is: " + Menu.getPizzaPrice(sizeAndType));
                 System.out.println("(If you don't want to see pizza's price anymore, just enter End.)\n" +
                         "Otherwise, please enter in the format: <size type> or just enter Exit to exit the program.");
-//                System.out.println("(You can only enter one of them: <size type> or End or Exit)");
                 option = scanner.nextLine();
             }
 
