@@ -1,8 +1,10 @@
 package a2.Controller;
 
+import a2.Model.AllData;
 import a2.Model.Order;
 import a2.Model.Pizza;
 import com.opencsv.CSVReader;
+import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -108,7 +110,7 @@ public class ParlourFileReader {
             // ex.printStackTrace();
         }
         Order.drinkToPrice = drinkToPrice;
-        Order.allDrinks = drinkToPrice.keySet();
+        AllData.allDrinks = drinkToPrice.keySet();
 //        return drinkToPrice;
     }
 
@@ -137,7 +139,7 @@ public class ParlourFileReader {
             // ex.printStackTrace();
         }
         Order.toppingToPrice = toppingToPrice;
-        Pizza.allToppings = toppingToPrice.keySet();
+        AllData.allToppings = toppingToPrice.keySet();
 //        return toppingToPrice;
     }
 
@@ -155,6 +157,6 @@ public class ParlourFileReader {
 //            System.out.println(sizes[i]);
             allSizes.add(sizes[i]);
         }
-        Pizza.allSizes = allSizes;
+        AllData.allSizes = allSizes;
     }
 }

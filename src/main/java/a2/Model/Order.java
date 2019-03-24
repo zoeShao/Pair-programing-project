@@ -6,7 +6,6 @@ public class Order {
     private Integer orderNum;
     private List<Pizza> pizzaList;
     private Map<String, Integer> drinkToQuantity;
-    public static Set<String> allDrinks;
     public static Map<String, Map<String, Double>> pizzaTypeToSizeToPrice;
     public static Map<String, Double> toppingToPrice;
     public static Map<String, Double> drinkToPrice;
@@ -25,10 +24,12 @@ public class Order {
     }
 
     public void updateDrink(String name, Integer quantity) {
-        if (!allDrinks.contains(name)) {
-            throw new IllegalArgumentException("Invalid drink name: " + name + ". Please try again.");
+        if (quantity > 0) {
+            this.drinkToQuantity.put(name, quantity);
+        } else {
+            this.drinkToQuantity.remove(name);
         }
-        this.drinkToQuantity.put(name, quantity);
+
     }
 
     public double calculateTotalPrice() {

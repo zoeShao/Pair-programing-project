@@ -1,4 +1,5 @@
 package a2;
+import a2.Controller.Handler;
 import a2.Controller.OrderMaker;
 import a2.Controller.ParlourFileReader;
 import a2.Model.Order;
@@ -22,44 +23,30 @@ public class PizzaParlour {
         ParlourFileReader.readPizzaRecipe(filePath + "Recipes.txt");
 //        Pizza.allToppings = Order.toppingToPrice.keySet();
 
-        String startMessage = "If you want to see the menu, please enter Menu.\n"
-                + "If you want to make an order, please enter Order.\n"
-                + "If you want to exit the program, please enter Exit.";
+        String orderMessgae = "If you want to make an order, please enter Order.";
+        String menuMessage = "If you want to see the menu, please enter Menu.";
+        String exitMessage = "If you want to exit the program, please enter Exit.";
 
         System.out.println("Welcome to 301 Pizza!: ");
-        System.out.println(startMessage);
+        System.out.println(orderMessgae);
+        System.out.println(menuMessage);
+        System.out.println(exitMessage);
         Scanner scanner = new Scanner(System.in);
-        String option;
-
-        while (!(option = scanner.nextLine()).equals("Exit")) {
+        String option = Handler.inputChecker(scanner, 5);
+        while (!option.equals("Exit")) {
             try {
                 if (option.equals("Menu")) {
                     System.out.println("Menu");
-                    System.out.println(startMessage);
                 } else if (option.equals("Order")) {
                     System.out.println("Order");
                     Order myOrder = new Order();
                     OrderMaker.makeOrder(scanner, myOrder);
                     System.out.println(myOrder);
-//                    Pizza.PizzaBuilder builder = new Pizza.PizzaBuilder();
-//                    builder.setSize("Small");
-//                    builder.setType("Pepperoni");
-//                    builder.updateToppings("Tomatoes", 3);
-//                    builder.updateToppings("Olives", 9);
-//                    builder.updateToppings("Tomatoes", 0);
-//                    Pizza p = builder.build();
-//                    Order order = new Order();
-//                    order.addPizza(p);
-//                    order.updateDrink("Pepsi", 3);
-//                    order.updateDrink("Coke", 4);
-//                    order.calculateTotalPrice();
-//                    System.out.println(order);
-//                    System.out.println("Would you like to pick up, or make a delivery order?: ");
-
-                } else {
-                    System.out.println("Invalid Input. Please enter Menu/Order/Exit.");
                 }
-
+                System.out.println(orderMessgae);
+                System.out.println(menuMessage);
+                System.out.println(exitMessage);
+                option = Handler.inputChecker(scanner, 5);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

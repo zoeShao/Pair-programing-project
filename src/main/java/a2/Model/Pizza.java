@@ -11,8 +11,7 @@ public class Pizza {
     private String recipe;  // specific method of preparation
     private Map<String, Integer> toppingToQuantity;
     public static Map<String, String> pizzaTypeToRecipe;
-    public static Set<String> allToppings;
-    public static Set<String> allSizes;
+
 
     // Builder for Pizza
     public static class PizzaBuilder {
@@ -21,17 +20,11 @@ public class Pizza {
         private Map<String, Integer> toppingToQuantity = new HashMap<String, Integer>();
 
         public PizzaBuilder setSize(String size){
-            if (!allSizes.contains(size)) {
-                throw new IllegalArgumentException("size must be Small/Medium/Large. Please try again.");
-            }
             this.size = size;
             return this;
         }
 
         public PizzaBuilder setType(String type){
-            if (!Pizza.pizzaTypeToRecipe.keySet().contains(type)){
-                throw new IllegalArgumentException("Invalid type: " + type + ". Please try again.");
-            }
             this.type = type;
             return this;
         }
@@ -42,12 +35,6 @@ public class Pizza {
         }
 
         public PizzaBuilder updateToppings(String topping, Integer quantity){
-            if (!Pizza.allToppings.contains(topping)){
-                throw new IllegalArgumentException("Invalid topping: " + topping + ". Please try again.");
-            }
-            if (quantity < 0) {
-                throw new IllegalArgumentException("Quantity must be greater than 0. Please try again.");
-            }
             if (quantity > 0) {
                 this.toppingToQuantity.put(topping, quantity);
             } else {
