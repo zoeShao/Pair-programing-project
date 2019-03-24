@@ -32,6 +32,10 @@ public class Order {
 
     }
 
+    public Integer getOrderNum(){
+        return this.orderNum;
+    }
+
     public double getTotalPrice(){
         return this.totalPrice;
     }
@@ -53,17 +57,63 @@ public class Order {
     public String toString() {
         StringBuilder orderContent = new StringBuilder("Order Number: #" + this.orderNum.toString() + "\n");
         orderContent.append("Pizzas:\n");
+        allPizzaToString(orderContent);
+        orderContent.append("Drinks:\n");
+        orderContent.append("    ");
+        allDrinkToString(orderContent);
+        orderContent.append("\n");
+        orderContent.append("Total price: ").append("$").append(this.totalPrice);
+        return orderContent.toString();
+    }
+
+    public void allPizzaToString(StringBuilder orderContent) {
         for (int i = 0; i < pizzaList.size(); i++) {
             String pizzaNumber = ((Integer)(i+1)).toString();
             orderContent.append("    ").append(pizzaNumber).append(". ").append(pizzaList.get(i).toString()).append("\n");
         }
-        orderContent.append("Drinks:\n");
-        orderContent.append("    ");
+    }
+
+    public void allDrinkToString(StringBuilder orderContent) {
         for (String drink: this.drinkToQuantity.keySet()) {
             orderContent.append(drink).append("*").append(this.drinkToQuantity.get(drink)).append("  ");
         }
-        orderContent.append("\n");
-        orderContent.append("Total price: ").append("$").append(this.totalPrice);
-        return orderContent.toString();
+    }
+
+    public void updatePizzaByIndex(int i, int flag, String inputString, int inputNumber) {
+        Pizza pizza = this.pizzaList.get(i);
+        Pizza newPizza;
+        switch (flag) {
+            case 0:
+                this.pizzaList.remove(i);
+                break;
+            case 1:
+                newPizza = new Pizza.PizzaBuilder()
+                        .setSize(inputString)
+                        .setType(pizza.getType())
+                        .setToppings(pizza.getToppings()).build();
+                this.pizzaList.remove(i);
+                this.pizzaList.add(i, newPizza);
+                break;
+            case 2:
+                newPizza = new Pizza.PizzaBuilder()
+                        .setSize(pizza.getSize())
+                        .setType(inputString)
+                        .setToppings(pizza.getToppings()).build();
+                this.pizzaList.remove(i);
+                this.pizzaList.add(i, newPizza);
+                break;
+            case 3:
+                newPizza = new Pizza.PizzaBuilder()
+                        .setSize(pizza.getSize())
+                        .setType(inputString)
+                        .setToppings(pizza.getToppings())
+                        .updateToppings(inputString, inputNumber)
+                        .build();
+                this.pizzaList.remove(i);
+                this.pizzaList.add(i, newPizza);
+                break;
+            default:
+                break;
+        }
     }
 }

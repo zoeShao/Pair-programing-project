@@ -62,6 +62,20 @@ public class Handler {
                 // version #1 (If use version #2, just comment it out the line below.)
                 validInput.add("End");
                 break;
+            case 10:
+                validInput.add("Update");
+                validInput.add("Confirm");
+                validInput.add("Cancel");
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                break;
+            case 11:
+                validInput.add("Size");
+                validInput.add("Type");
+                validInput.add("Topping");
+                validInput.add("Delete");
+                validInput.add("Confirm");
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                break;
             default:
                 errorMessage = "Invalid flag.";
         }
@@ -147,5 +161,26 @@ public class Handler {
         parsedOutput.add(parts[0]);
         parsedOutput.add(parts[1]);
         return parsedOutput;
+    }
+
+    public static List<String> getQuantity(Scanner scanner, int flag){
+        Set<String> inputSet;
+        switch (flag) {
+            case 1:
+                inputSet =  AllData.allToppings;
+                break;
+            case 2:
+                inputSet = AllData.allDrinks;
+                break;
+            default:
+                inputSet = new HashSet<String>();
+                break;
+        }
+        String option = scanner.nextLine();
+        List<String> quantity;
+        while ((quantity = Handler.inputParser(option, inputSet)) == null) {
+            option = scanner.nextLine();
+        }
+        return quantity;
     }
 }

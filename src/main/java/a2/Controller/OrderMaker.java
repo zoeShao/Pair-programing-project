@@ -51,11 +51,7 @@ public class OrderMaker {
         myOrder.calculateTotalPrice();
     }
 
-    private static void orderPizza(Scanner scanner, Order myOrder) {
-//        Pizza.PizzaBuilder pizzaBuilder = new Pizza.PizzaBuilder();
-//        String sizeOption = Handler.convertSetToString(AllData.allSizes);
-//        String typeOption = Handler.convertSetToString(Pizza.pizzaTypeToRecipe.keySet());
-//        String toppingOption = Handler.convertSetToString(AllData.allToppings);
+    public static void orderPizza(Scanner scanner, Order myOrder) {
 
         System.out.println("What size do you want? Please enter " + sizeOption + ".");
         System.out.println(ExitInstruction);
@@ -83,14 +79,15 @@ public class OrderMaker {
                     "Please enter " + toppingOption + ":<quantity of the topping>");
             System.out.println("e.g. Pepperoni:3");
             System.out.println(ExitInstruction);
-            option = scanner.nextLine();
-            List<String> toppingToQuantity;
-            while ((toppingToQuantity = Handler.inputParser(option, AllData.allToppings)) == null) {
-                option = scanner.nextLine();
-            }
+//            option = scanner.nextLine();
+//            List<String> toppingToQuantity;
+//            while ((toppingToQuantity = Handler.inputParser(option, AllData.allToppings)) == null) {
+//                option = scanner.nextLine();
+//            }
+            List<String> toppingToQuantity = Handler.getQuantity(scanner, 1);
             pizzaBuilder.updateToppings(toppingToQuantity.get(0), Integer.parseInt(toppingToQuantity.get(1)));
 
-            System.out.println("Do you want to add toppings? Please enter Yes/No.");
+            System.out.println("Do you want to add more toppings? Please enter Yes/No.");
             System.out.println(ExitInstruction);
             option = Handler.inputChecker(scanner, 4);
         }
@@ -103,16 +100,17 @@ public class OrderMaker {
         }
     }
 
-    private static void orderDrink(Scanner scanner, Order myOrder) {
+    public static void orderDrink(Scanner scanner, Order myOrder) {
         String drinkOption = Handler.convertSetToString(AllData.allDrinks);
         System.out.println("Please enter " + drinkOption + ":<quantity of the drink>");
         System.out.println("e.g. Coke:5");
         System.out.println(ExitInstruction);
-        String option = scanner.nextLine();
-        List<String> drinkToQuantity;
-        while ((drinkToQuantity = Handler.inputParser(option, AllData.allDrinks)) == null) {
-            option = scanner.nextLine();
-        }
+//        String option = scanner.nextLine();
+//        List<String> drinkToQuantity;
+//        while ((drinkToQuantity = Handler.inputParser(option, AllData.allDrinks)) == null) {
+//            option = scanner.nextLine();
+//        }
+        List<String> drinkToQuantity = Handler.getQuantity(scanner, 2);
         myOrder.updateDrink(drinkToQuantity.get(0), Integer.parseInt(drinkToQuantity.get(1)));
         System.out.println("[Notice]: You have added the drink(s) to cart.");
     }

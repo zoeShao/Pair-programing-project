@@ -1,6 +1,7 @@
 package a2;
 import a2.Controller.Handler;
 import a2.Controller.OrderMaker;
+import a2.Controller.OrderUpdater;
 import a2.Controller.ParlourFileReader;
 import a2.Model.Order;
 import a2.Model.Pizza;
@@ -26,6 +27,11 @@ public class PizzaParlour {
         String orderMessgae = "If you want to make an order, please enter Order.";
         String menuMessage = "If you want to see the menu, please enter Menu.";
         String exitMessage = "If you want to exit the program, please enter Exit.";
+        String updateMessage = "If you want to update your order, please enter Update.";
+        String cancelMessage = "If you want to cancel your order, please enter Cancel.";
+        String confirmMessage = "If you want to confirm your order (i.e. you don't want to update anymore), please enter Confirm.";
+        String deliveryMessage = "If you want to make a delivery, please enter Delivery.";
+        String pickupMessage = "If you want to pick up your order in store, please enter Pickup.";
 
         System.out.println("Welcome to 301 Pizza!: ");
         System.out.println(orderMessgae);
@@ -50,6 +56,31 @@ public class PizzaParlour {
                         System.out.println("==========Here is your order==========");
                         System.out.println(myOrder);
                         System.out.println("[Notice]: Order Submitted Successfully!!!");
+
+                        System.out.println(updateMessage);
+                        System.out.println(confirmMessage);
+                        System.out.println(cancelMessage);
+                        System.out.println(exitMessage);
+                        option = Handler.inputChecker(scanner, 10);
+                        while (option.equals("Update")) {
+                            OrderUpdater.updateOrder(scanner, myOrder);
+                            System.out.println(updateMessage);
+                            System.out.println(confirmMessage);
+                            System.out.println(cancelMessage);
+                            System.out.println(exitMessage);
+                            option = Handler.inputChecker(scanner, 10);
+                        }
+                        if (option.equals("Cancel")) {
+                            System.out.println("Your order has been canceled.");
+                            System.out.println("If you want to order again, please see instructions below:");
+                        } else if (option.equals("Exit")) {
+                            System.exit(0);
+                        } else if (option.equals("Confirm")) {
+                            System.out.println("Your order has been confirmed.");
+                            System.out.println(deliveryMessage);
+                            System.out.println(pickupMessage);
+                            System.out.println(exitMessage);
+                        }
                     }
                 }
                 System.out.println(orderMessgae);
