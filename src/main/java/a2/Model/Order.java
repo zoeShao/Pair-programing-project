@@ -21,6 +21,7 @@ public class Order {
 
     public void addPizza(Pizza pizza) {
         this.pizzaList.add(pizza);
+        calculateTotalPrice();
     }
 
     public void updateDrink(String name, Integer quantity) {
@@ -29,7 +30,7 @@ public class Order {
         } else {
             this.drinkToQuantity.remove(name);
         }
-
+        calculateTotalPrice();
     }
 
     public Integer getOrderNum(){
@@ -44,7 +45,7 @@ public class Order {
         return this.pizzaList;
     }
 
-    public void calculateTotalPrice() {
+    private void calculateTotalPrice() {
         double totalPrice = 0.0;
         for (Pizza pizza: this.pizzaList) {
             totalPrice += pizzaTypeToSizeToPrice.get(pizza.getType()).get(pizza.getSize());
@@ -120,5 +121,6 @@ public class Order {
             default:
                 break;
         }
+        calculateTotalPrice();
     }
 }

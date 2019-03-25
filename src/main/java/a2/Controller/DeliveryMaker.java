@@ -29,7 +29,8 @@ public class DeliveryMaker {
         uberEatsDetails.put("Order Details", deliveryDetails.get("Order Details"));
         uberEatsDetails.put("Order Number", deliveryDetails.get("Order Number"));
         try {
-            FileWriter file = new FileWriter("src/main/Files/UberEatsDeliveryDetails.json");
+            FileWriter file = new FileWriter("src/main/Files/UberEatsOrderNum"
+                    + deliveryDetails.get("Order Number") + ".json");
             file.write(uberEatsDetails.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -39,14 +40,14 @@ public class DeliveryMaker {
 
     private static void foodoraDelivery() {
         try {
-            FileWriter outputfile = new FileWriter("src/main/Files/FoodoraDeliveryDetails.csv");
+            FileWriter outputfile = new FileWriter("src/main/Files/FoodoraOrderNum"
+                    + deliveryDetails.get("Order Number") + ".csv");
             CSVWriter writer = new CSVWriter(outputfile);
-            String[] AddressData = { "Address", deliveryDetails.get("Address") };
-            writer.writeNext(AddressData);
-            String[] detailData = { "Order Details", deliveryDetails.get("Order Details") };
-            writer.writeNext(detailData);
-            String[] orderNumData = { "Order Number", deliveryDetails.get("Order Number") };
-            writer.writeNext(orderNumData);
+            String[] header = { "Name", "Order Details", "Order Number" };
+            writer.writeNext(header);
+            String[] data = { deliveryDetails.get("Address"), deliveryDetails.get("Order Details"),
+                    deliveryDetails.get("Order Number")};
+            writer.writeNext(data);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -65,6 +65,8 @@ public class PizzaParlour {
                             OrderUpdater.updateOrder(scanner, myOrder);
                             System.out.println("==========Here is your updated order==========");
                             System.out.println(myOrder);
+                            System.out.println("If you want to update anything else,"
+                                    + " please see the instructions below:");
                             System.out.println(updateMessage);
                             System.out.println(confirmMessage);
                             System.out.println(cancelMessage);
@@ -72,18 +74,19 @@ public class PizzaParlour {
                             option = Handler.inputChecker(scanner, 10);
                         }
                         if (option.equals("Cancel")) {
-                            System.out.println("Your order has been canceled.");
-                            System.out.println("If you want to order again, please see instructions below:");
+                            System.out.println("[Notice]: Your order has been canceled.");
+//                            System.out.println("If you want to order again, please see instructions below:");
                         } else if (option.equals("Exit")) {
                             System.exit(0);
                         } else if (option.equals("Confirm")) {
                             if (myOrder.getTotalPrice() == 0.0) {
                                 System.out.println("You haven't ordered anything. Please try again.");
                             } else {
-                                System.out.println("Your order has been confirmed.");
+//                                System.out.println("[Notice]: Your order has been confirmed.");
                                 System.out.println("==========Here is your final order==========");
                                 System.out.println(myOrder);
                                 System.out.println("Which way do you like, pickup or delivery?");
+                                System.out.println("[Notice]: Your order has been confirmed.");
                                 System.out.println(deliveryMessage);
                                 System.out.println(pickupMessage);
                                 System.out.println(exitMessage);
@@ -108,6 +111,7 @@ public class PizzaParlour {
                         }
                     }
                 }
+                System.out.println("\nWelcome to 301 Pizza! Want another order? Please follow the instruction below:");
                 System.out.println(orderMessgae);
                 System.out.println(menuMessage);
                 System.out.println(exitMessage);

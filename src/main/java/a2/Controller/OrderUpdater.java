@@ -20,11 +20,9 @@ public class OrderUpdater {
         }
         if (option.equals("Pizza")) {
             updatePizza(scanner, myOrder);
-            myOrder.calculateTotalPrice();
         }
         if (option.equals("Drink")) {
             updateDrink(scanner, myOrder);
-            myOrder.calculateTotalPrice();
         }
     }
 
@@ -34,7 +32,7 @@ public class OrderUpdater {
         while (outputNum == null) {
             try {
                 Integer pizzaNum = Integer.parseInt(option);
-                if (pizzaNum > myOrder.getPizzaList().size() || pizzaNum < 0) {
+                if (pizzaNum > myOrder.getPizzaList().size() || pizzaNum <= 0) {
                     System.out.println("Pizza number out of range. Please try again.");
                     option = scanner.nextLine();
                 } else {
@@ -64,7 +62,7 @@ public class OrderUpdater {
         Integer pizzaNumber = pizzaNumberInputChecker(scanner, myOrder);
         if (pizzaNumber == 0) {
             OrderMaker.orderPizza(scanner, myOrder);
-            System.out.println("If you want to update anything else, please see the instructions below:");
+//            System.out.println("If you want to update anything else, please see the instructions below:");
         } else {
             pizzaNumber = pizzaNumber - 1;
             System.out.println("What do you want to update? Please enter Size/Type/Topping.");
