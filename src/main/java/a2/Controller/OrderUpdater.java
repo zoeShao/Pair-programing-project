@@ -1,8 +1,8 @@
 package a2.Controller;
 
-import a2.Model.AllData;
 import a2.Model.Order;
 import a2.Model.Pizza;
+import a2.PizzaParlour;
 
 import java.util.List;
 import java.util.Scanner;
@@ -80,7 +80,7 @@ public class OrderUpdater {
                 }
                 if (option.equals("Size")) {
                     System.out.println("What size do you want? Please enter "
-                            + Handler.convertSetToString(AllData.allSizes) + ".");
+                            + Handler.convertSetToString(PizzaParlour.allSizes) + ".");
                     System.out.println(exitMessage);
                     option = Handler.inputChecker(scanner, 2);
                     myOrder.updatePizzaByIndex(pizzaNumber, 1, option, 0);
@@ -88,7 +88,7 @@ public class OrderUpdater {
                 }
                 if (option.equals("Type")) {
                     System.out.println("What type do you want? Please enter "
-                            + Handler.convertSetToString(Pizza.pizzaTypeToRecipe.keySet()) + ".");
+                            + Handler.convertSetToString(PizzaParlour.allTypes) + ".");
                     System.out.println(exitMessage);
                     option = Handler.inputChecker(scanner, 3);
                     myOrder.updatePizzaByIndex(pizzaNumber, 2, option, 0);
@@ -96,7 +96,7 @@ public class OrderUpdater {
                 }
                 if (option.equals("Topping")) {
                     System.out.println("Which topping do you want to update? Please enter "
-                            + Handler.convertSetToString(AllData.allToppings) + ".");
+                            + Handler.convertSetToString(PizzaParlour.allToppings) + ".");
                     System.out.println("Please use format: topping:quantity");
                     System.out.println("If you want to delete this topping, please enter topping:0");
                     System.out.println(exitMessage);
@@ -122,7 +122,7 @@ public class OrderUpdater {
         myOrder.allDrinkToString(allDrink);
         System.out.println(allDrink.toString());
         System.out.println("You can update the quantity of any drinks that you have ordered or add new drinks.\n" +
-                "Please enter " + Handler.convertSetToString(AllData.allDrinks) + ".");
+                "Please enter " + Handler.convertSetToString(PizzaParlour.allDrinks) + ".");
         System.out.println("[Note]: Please use format: <drink:quantity>.");
         System.out.println("If you want to delete this drink, please enter drink:0");
         System.out.println(exitMessage);

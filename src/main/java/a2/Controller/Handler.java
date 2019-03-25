@@ -1,7 +1,7 @@
 package a2.Controller;
 
-import a2.Model.AllData;
 import a2.Model.Pizza;
+import a2.PizzaParlour;
 
 import java.util.*;
 
@@ -24,11 +24,11 @@ public class Handler {
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 break;
             case 2:
-                validInput.addAll(AllData.allSizes);
+                validInput.addAll(PizzaParlour.allSizes);
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 break;
             case 3:
-                validInput.addAll(Pizza.pizzaTypeToRecipe.keySet());
+                validInput.addAll(PizzaParlour.allTypes);
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 break;
             case 4:
@@ -51,13 +51,13 @@ public class Handler {
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 break;
             case 8:
-                validInput.addAll(AllData.allToppings);
+                validInput.addAll(PizzaParlour.allToppings);
                 // version #1 (If use version #2, just comment it out the line below.)
                 validInput.add("End");
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 break;
             case 9:
-                validInput.addAll(AllData.allDrinks);
+                validInput.addAll(PizzaParlour.allDrinks);
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 // version #1 (If use version #2, just comment it out the line below.)
                 validInput.add("End");
@@ -157,13 +157,13 @@ public class Handler {
             return null;
         }
         String type = parts[1];
-        if (!Pizza.pizzaTypeToRecipe.keySet().contains(type)){
+        if (!PizzaParlour.allTypes.contains(type)){
             System.out.println("Invalid type: " + type + ". Please try again.");
             System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         String size = parts[0];
-        if (!AllData.allSizes.contains(size)) {
+        if (!PizzaParlour.allSizes.contains(size)) {
             System.out.println("size must be Small/Medium/Large. Please try again.");
             System.out.println("If you want to exit the program, please enter Exit");
             return null;
@@ -178,10 +178,10 @@ public class Handler {
         Set<String> inputSet;
         switch (flag) {
             case 1:
-                inputSet =  AllData.allToppings;
+                inputSet =  PizzaParlour.allToppings;
                 break;
             case 2:
-                inputSet = AllData.allDrinks;
+                inputSet = PizzaParlour.allDrinks;
                 break;
             default:
                 inputSet = new HashSet<String>();

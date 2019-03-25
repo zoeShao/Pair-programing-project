@@ -1,9 +1,9 @@
 package a2.Controller;
 
-import a2.Model.AllData;
 import a2.Model.Menu;
 import a2.Model.Order;
 import a2.Model.Pizza;
+import a2.PizzaParlour;
 
 import java.util.*;
 
@@ -11,10 +11,10 @@ public class OrderMaker {
     private static String MenuInstruction = "If you want to see the menu, please enter Menu.";
     private static String ExitInstruction = "If you want to exit the program, please enter Exit.";
     private static Pizza.PizzaBuilder pizzaBuilder = new Pizza.PizzaBuilder();
-    private static String sizeOption = Handler.convertSetToString(AllData.allSizes);
-    private static String typeOption = Handler.convertSetToString(Pizza.pizzaTypeToRecipe.keySet());
-    private static String toppingOption = Handler.convertSetToString(AllData.allToppings);
-    private static String drinkOption = Handler.convertSetToString(AllData.allDrinks);
+    private static String sizeOption = Handler.convertSetToString(PizzaParlour.allSizes);
+    private static String typeOption = Handler.convertSetToString(PizzaParlour.allTypes);
+    private static String toppingOption = Handler.convertSetToString(PizzaParlour.allToppings);
+    private static String drinkOption = Handler.convertSetToString(PizzaParlour.allDrinks);
 
     public static void makeOrder(Scanner scanner, Order myOrder) {
         System.out.println("What do you want to order, pizza or drink? Please enter Pizza or Drink.");
@@ -55,7 +55,7 @@ public class OrderMaker {
         System.out.println("What size do you want? Please enter " + sizeOption + ".");
         System.out.println(ExitInstruction);
         String option = Handler.inputChecker(scanner, 2);
-        if (AllData.allSizes.contains(option)) {
+        if (PizzaParlour.allSizes.contains(option)) {
             pizzaBuilder.setSize(option);
         } else if (option.equals("Exit")) {
             System.exit(0);
@@ -64,7 +64,7 @@ public class OrderMaker {
         System.out.println("What type do you want? Please enter " + typeOption + ".");
         System.out.println(ExitInstruction);
         option = Handler.inputChecker(scanner, 3);
-        if (Pizza.pizzaTypeToRecipe.keySet().contains(option)) {
+        if (PizzaParlour.allTypes.contains(option)) {
             pizzaBuilder.setType(option);
         } else if (option.equals("Exit")) {
             System.exit(0);
@@ -95,7 +95,7 @@ public class OrderMaker {
     }
 
     public static void orderDrink(Scanner scanner, Order myOrder) {
-        String drinkOption = Handler.convertSetToString(AllData.allDrinks);
+        String drinkOption = Handler.convertSetToString(PizzaParlour.allDrinks);
         System.out.println("Please enter with the format: <drink name(" + drinkOption + "):quantity of the drink(number)>");
         System.out.println("e.g. Coke:5");
         System.out.println(ExitInstruction);
@@ -161,7 +161,7 @@ public class OrderMaker {
             System.out.println(ExitInstruction);
             option = Handler.inputChecker(scanner, 8);
             while (!option.equals("End")) {
-                if (AllData.allToppings.contains(option)) {
+                if (PizzaParlour.allToppings.contains(option)) {
                     System.out.println(option + "'s Price is: " + Menu.getToppingPrice(option));
                 } else if (option.equals("Exit")) {
                     System.exit(0);
@@ -178,7 +178,7 @@ public class OrderMaker {
             System.out.println(ExitInstruction);
             option = Handler.inputChecker(scanner, 9);
             while (!option.equals("End")) {
-                if (AllData.allDrinks.contains(option)) {
+                if (PizzaParlour.allDrinks.contains(option)) {
                     System.out.println(option + "'s Price is: " + Menu.getDrinkPrice(option));
                 } else if (option.equals("Exit")) {
                     System.exit(0);

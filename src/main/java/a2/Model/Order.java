@@ -6,11 +6,10 @@ public class Order {
     private Integer orderNum;
     private List<Pizza> pizzaList;
     private Map<String, Integer> drinkToQuantity;
+    private double totalPrice;
     public static Map<String, Map<String, Double>> pizzaTypeToSizeToPrice;
     public static Map<String, Double> toppingToPrice;
     public static Map<String, Double> drinkToPrice;
-    private double totalPrice;
-
 
     public Order() {
         this.orderNum = 10000 + (new Random(System.currentTimeMillis())).nextInt(20000);
@@ -19,44 +18,20 @@ public class Order {
         this.totalPrice = 0.0;
     }
 
-    public void addPizza(Pizza pizza) {
-        this.pizzaList.add(pizza);
-        calculateTotalPrice();
-    }
-
-    public void updateDrink(String name, Integer quantity) {
-        if (quantity > 0) {
-            this.drinkToQuantity.put(name, quantity);
-        } else {
-            this.drinkToQuantity.remove(name);
-        }
-        calculateTotalPrice();
-    }
-
     public Integer getOrderNum(){
         return this.orderNum;
-    }
-
-    public double getTotalPrice(){
-        return this.totalPrice;
     }
 
     public List<Pizza> getPizzaList(){
         return this.pizzaList;
     }
 
-    private void calculateTotalPrice() {
-        double totalPrice = 0.0;
-        for (Pizza pizza: this.pizzaList) {
-            totalPrice += pizzaTypeToSizeToPrice.get(pizza.getType()).get(pizza.getSize());
-            for (String topping: pizza.getToppings().keySet()) {
-                totalPrice += toppingToPrice.get(topping) * pizza.getToppings().get(topping);
-            }
-        }
-        for (String drink: this.drinkToQuantity.keySet()) {
-            totalPrice += drinkToPrice.get(drink) * this.drinkToQuantity.get(drink);
-        }
-        this.totalPrice = totalPrice;
+    public Map<String, Integer> getDrinkToQuantity() {
+        return this.drinkToQuantity;
+    }
+
+    public double getTotalPrice(){
+        return this.totalPrice;
     }
 
     @Override
@@ -85,6 +60,15 @@ public class Order {
         }
     }
 
+    public void updateDrink(String name, Integer quantity) {
+        if (quantity > 0) {
+            this.drinkToQuantity.put(name, quantity);
+        } else {
+            this.drinkToQuantity.remove(name);
+        }
+        calculateTotalPrice();
+    }
+
     public void updatePizzaByIndex(int i, int flag, String inputString, int inputNumber) {
         Pizza pizza = this.pizzaList.get(i);
         Pizza newPizza;
@@ -96,7 +80,7 @@ public class Order {
                 newPizza = new Pizza.PizzaBuilder()
                         .setSize(inputString)
                         .setType(pizza.getType())
-                        .setToppings(pizza.getToppings()).build();
+                        .setToppings(pizza.getToppingToQuantity()).build();
                 this.pizzaList.remove(i);
                 this.pizzaList.add(i, newPizza);
                 break;
@@ -104,7 +88,7 @@ public class Order {
                 newPizza = new Pizza.PizzaBuilder()
                         .setSize(pizza.getSize())
                         .setType(inputString)
-                        .setToppings(pizza.getToppings()).build();
+                        .setToppings(pizza.getToppingToQuantity()).build();
                 this.pizzaList.remove(i);
                 this.pizzaList.add(i, newPizza);
                 break;
@@ -112,7 +96,7 @@ public class Order {
                 newPizza = new Pizza.PizzaBuilder()
                         .setSize(pizza.getSize())
                         .setType(inputString)
-                        .setToppings(pizza.getToppings())
+                        .setToppings(pizza.getToppingToQuantity())
                         .updateToppings(inputString, inputNumber)
                         .build();
                 this.pizzaList.remove(i);
@@ -122,5 +106,24 @@ public class Order {
                 break;
         }
         calculateTotalPrice();
+    }
+
+    public void addPizza(Pizza pizza) {
+        this.pizzaList.add(pizza);
+        calculateTotalPrice();
+    }
+
+    private void calculateTotalPrice() {
+        double totalPrice = 0.0;
+        for (Pizza pizza: this.pizzaList) {
+            totalPrice += pizzaTypeToSizeToPrice.get(pizza.getType()).get(pizza.getSize());
+            for (String topping: pizza.getToppingToQuantity().keySet()) {
+                totalPrice += toppingToPrice.get(topping) * pizza.getToppingToQuantity().get(topping);
+            }
+        }
+        for (String drink: this.drinkToQuantity.keySet()) {
+            totalPrice += drinkToPrice.get(drink) * this.drinkToQuantity.get(drink);
+        }
+        this.totalPrice = totalPrice;
     }
 }

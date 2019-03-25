@@ -67,7 +67,7 @@ public class Pizza {
         return this.recipe;
     }
 
-    public Map<String, Integer> getToppings(){
+    public Map<String, Integer> getToppingToQuantity(){
         return this.toppingToQuantity;
     }
 

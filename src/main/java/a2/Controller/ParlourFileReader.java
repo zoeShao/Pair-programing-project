@@ -1,8 +1,8 @@
 package a2.Controller;
 
-import a2.Model.AllData;
 import a2.Model.Order;
 import a2.Model.Pizza;
+import a2.PizzaParlour;
 import com.opencsv.CSVReader;
 import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
@@ -50,6 +50,7 @@ public class ParlourFileReader {
             // ex.printStackTrace();
         }
         Pizza.pizzaTypeToRecipe = typeToRecipe;
+        PizzaParlour.allTypes = typeToRecipe.keySet();
 //        return typeToRecipe;
     }
 
@@ -110,7 +111,7 @@ public class ParlourFileReader {
             // ex.printStackTrace();
         }
         Order.drinkToPrice = drinkToPrice;
-        AllData.allDrinks = drinkToPrice.keySet();
+        PizzaParlour.allDrinks = drinkToPrice.keySet();
 //        return drinkToPrice;
     }
 
@@ -139,7 +140,7 @@ public class ParlourFileReader {
             // ex.printStackTrace();
         }
         Order.toppingToPrice = toppingToPrice;
-        AllData.allToppings = toppingToPrice.keySet();
+        PizzaParlour.allToppings = toppingToPrice.keySet();
 //        return toppingToPrice;
     }
 
@@ -157,6 +158,6 @@ public class ParlourFileReader {
 //            System.out.println(sizes[i]);
             allSizes.add(sizes[i]);
         }
-        AllData.allSizes = allSizes;
+        PizzaParlour.allSizes = allSizes;
     }
 }

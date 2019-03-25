@@ -6,20 +6,18 @@ import a2.Model.Pizza;
 import java.util.*;
 
 public class PizzaParlour {
+    public static Set<String> allDrinks;
+    public static Set<String> allToppings;
+    public static Set<String> allSizes;
+    public static Set<String> allTypes;
 
     public static void main(String[] args) {
         String filePath = "src/main/Files/";
-        // Generates pizzaTypeToRecipe Map
-//        Order.pizzaTypeToSizeToPrice = ParlourFileReader.readPizzaTypeSizePrice(filePath + "PizzaTypeSizePrice.csv");
         ParlourFileReader.readPizzaTypeSizePrice(filePath + "PizzaTypeSizePrice.csv");
-//        Order.drinkToPrice = ParlourFileReader.readDrinkPrice(filePath + "DrinkPrice.csv");
         ParlourFileReader.readDrinkPrice(filePath + "DrinkPrice.csv");
-//        Order.toppingToPrice = ParlourFileReader.readToppingPrice(filePath + "ToppingPrice.csv");
-//        Order.allDrinks = Order.drinkToPrice.keySet();
+
         ParlourFileReader.readToppingPrice(filePath + "ToppingPrice.csv");
-//        Pizza.pizzaTypeToRecipe = ParlourFileReader.readPizzaRecipe(filePath + "Recipes.txt");
         ParlourFileReader.readPizzaRecipe(filePath + "Recipes.txt");
-//        Pizza.allToppings = Order.toppingToPrice.keySet();
 
         String orderMessgae = "If you want to make an order, please enter Order.";
         String menuMessage = "If you want to see the menu, please enter Menu.";
@@ -75,14 +73,12 @@ public class PizzaParlour {
                         }
                         if (option.equals("Cancel")) {
                             System.out.println("[Notice]: Your order has been canceled.");
-//                            System.out.println("If you want to order again, please see instructions below:");
                         } else if (option.equals("Exit")) {
                             System.exit(0);
                         } else if (option.equals("Confirm")) {
                             if (myOrder.getTotalPrice() == 0.0) {
                                 System.out.println("You haven't ordered anything. Please try again.");
                             } else {
-//                                System.out.println("[Notice]: Your order has been confirmed.");
                                 System.out.println("==========Here is your final order==========");
                                 System.out.println(myOrder);
                                 System.out.println("Which way do you like, pickup or delivery?");
