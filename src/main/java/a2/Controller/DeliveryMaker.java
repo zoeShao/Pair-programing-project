@@ -1,16 +1,19 @@
 package a2.Controller;
 
-
 import a2.Model.Order;
 import com.opencsv.CSVWriter;
 import org.json.simple.JSONObject;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class DeliveryMaker {
     private static Map<String, String> deliveryDetails = new HashMap<String, String>();
+    private static String foodoraFilePath = "src/main/Files/FoodoraOrderNum"
+            + deliveryDetails.get("Order Number") + ".csv";
+    private static String uberEatsFilePath = "src/main/Files/UberEatsOrderNum"
+            + deliveryDetails.get("Order Number") + ".json";
 
 
     public static void setDeliveryDetails(Order myOrder, String userAddress) {
@@ -19,9 +22,9 @@ public class DeliveryMaker {
         deliveryDetails.put("Order Number", myOrder.getOrderNum().toString());
     }
 
-    public static Map<String, String> inHouseDelivery() {
-        return deliveryDetails;
-    }
+//    public static Map<String, String> inHouseDelivery() {
+//        return deliveryDetails;
+//    }
 
     private static void uberEatsDelivery() {
         JSONObject uberEatsDetails = new JSONObject();
@@ -29,8 +32,7 @@ public class DeliveryMaker {
         uberEatsDetails.put("Order Details", deliveryDetails.get("Order Details"));
         uberEatsDetails.put("Order Number", deliveryDetails.get("Order Number"));
         try {
-            FileWriter file = new FileWriter("src/main/Files/UberEatsOrderNum"
-                    + deliveryDetails.get("Order Number") + ".json");
+            FileWriter file = new FileWriter(uberEatsFilePath);
             file.write(uberEatsDetails.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -40,8 +42,7 @@ public class DeliveryMaker {
 
     private static void foodoraDelivery() {
         try {
-            FileWriter outputfile = new FileWriter("src/main/Files/FoodoraOrderNum"
-                    + deliveryDetails.get("Order Number") + ".csv");
+            FileWriter outputfile = new FileWriter(foodoraFilePath);
             CSVWriter writer = new CSVWriter(outputfile);
             String[] header = { "Name", "Order Details", "Order Number" };
             writer.writeNext(header);
