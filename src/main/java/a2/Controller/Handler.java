@@ -76,6 +76,17 @@ public class Handler {
                 validInput.add("Confirm");
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 break;
+            case 12:
+                validInput.add("Pickup");
+                validInput.add("Delivery");
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                break;
+            case 13:
+                validInput.add("InHouse");
+                validInput.add("UberEats");
+                validInput.add("Foodora");
+                errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
+                break;
             default:
                 errorMessage = "Invalid flag.";
         }
@@ -107,13 +118,13 @@ public class Handler {
         }
         String[] parts = input.split(":");
         if (parts.length != 2) {
-            System.out.println("Invalid input." + "Please enter " + optionMessage + ":<quantity>");
+            System.out.println("Invalid input. " + "Please enter " + optionMessage + ":<quantity>");
             System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }
         String topping = parts[0];
         if (!options.contains(topping)) {
-            System.out.println("Invalid topping." + "Please enter " + optionMessage + ":<quantity>");
+            System.out.println("Invalid input. " + "Please enter " + optionMessage + ":<quantity>");
             System.out.println("If you want to exit the program, please enter Exit");
             return null;
         }

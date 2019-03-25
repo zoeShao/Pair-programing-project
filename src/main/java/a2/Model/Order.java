@@ -40,17 +40,22 @@ public class Order {
         return this.totalPrice;
     }
 
-    public double calculateTotalPrice() {
+    public List<Pizza> getPizzaList(){
+        return this.pizzaList;
+    }
+
+    public void calculateTotalPrice() {
+        double totalPrice = 0.0;
         for (Pizza pizza: this.pizzaList) {
-            this.totalPrice += pizzaTypeToSizeToPrice.get(pizza.getType()).get(pizza.getSize());
+            totalPrice += pizzaTypeToSizeToPrice.get(pizza.getType()).get(pizza.getSize());
             for (String topping: pizza.getToppings().keySet()) {
-                this.totalPrice += toppingToPrice.get(topping) * pizza.getToppings().get(topping);
+                totalPrice += toppingToPrice.get(topping) * pizza.getToppings().get(topping);
             }
         }
         for (String drink: this.drinkToQuantity.keySet()) {
-            this.totalPrice += drinkToPrice.get(drink) * this.drinkToQuantity.get(drink);
+            totalPrice += drinkToPrice.get(drink) * this.drinkToQuantity.get(drink);
         }
-        return this.totalPrice;
+        this.totalPrice = totalPrice;
     }
 
     @Override

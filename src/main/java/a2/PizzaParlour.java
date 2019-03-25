@@ -1,8 +1,5 @@
 package a2;
-import a2.Controller.Handler;
-import a2.Controller.OrderMaker;
-import a2.Controller.OrderUpdater;
-import a2.Controller.ParlourFileReader;
+import a2.Controller.*;
 import a2.Model.Order;
 import a2.Model.Pizza;
 
@@ -29,9 +26,15 @@ public class PizzaParlour {
         String exitMessage = "If you want to exit the program, please enter Exit.";
         String updateMessage = "If you want to update your order, please enter Update.";
         String cancelMessage = "If you want to cancel your order, please enter Cancel.";
-        String confirmMessage = "If you want to confirm your order (i.e. you don't want to update anymore), please enter Confirm.";
+        String confirmMessage = "If you want to confirm your order (i.e. you don't want to update anymore),"
+                + " please enter Confirm.";
         String deliveryMessage = "If you want to make a delivery, please enter Delivery.";
+        String makeDeliveryChoiceMessage = "There are three ways to send delivery: in-house, Uber Eats, Foodora,"
+                + " which way do you prefer?\n"
+                + "Please enter either InHouse or UberEats or Foodora.";
         String pickupMessage = "If you want to pick up your order in store, please enter Pickup.";
+        String confirmPickupMessage = "[Notice]: Done! The store address is: 40 St.George st.,"
+                + " please come to the store to pick up the food.";
 
         System.out.println("Welcome to 301 Pizza!: ");
         System.out.println(orderMessgae);
@@ -43,16 +46,12 @@ public class PizzaParlour {
             try {
                 if (option.equals("Menu")) {
                     OrderMaker.readMenu(scanner);
-                    System.out.println("Menu");
                 } else if (option.equals("Order")) {
-                    System.out.println("Order");
                     Order myOrder = new Order();
                     OrderMaker.makeOrder(scanner, myOrder);
                     if (myOrder.getTotalPrice() == 0.0) {
                         System.out.println("You haven't ordered anything. Please try again.");
                     } else {
-//                        System.out.println("Order Submitted!!!");
-//                        System.out.println("[Notice]: Order Submitted!!!");
                         System.out.println("==========Here is your order==========");
                         System.out.println(myOrder);
                         System.out.println("[Notice]: Order Submitted Successfully!!!");
@@ -78,12 +77,34 @@ public class PizzaParlour {
                         } else if (option.equals("Exit")) {
                             System.exit(0);
                         } else if (option.equals("Confirm")) {
-                            System.out.println("Your order has been confirmed.");
-                            System.out.println("==========Here is your final order==========");
-                            System.out.println(myOrder);
-                            System.out.println(deliveryMessage);
-                            System.out.println(pickupMessage);
-                            System.out.println(exitMessage);
+                            if (myOrder.getTotalPrice() == 0.0) {
+                                System.out.println("You haven't ordered anything. Please try again.");
+                            } else {
+                                System.out.println("Your order has been confirmed.");
+                                System.out.println("==========Here is your final order==========");
+                                System.out.println(myOrder);
+                                System.out.println("Which way do you like, pickup or delivery?");
+                                System.out.println(deliveryMessage);
+                                System.out.println(pickupMessage);
+                                System.out.println(exitMessage);
+                                option = Handler.inputChecker(scanner, 12);
+                                if (option.equals("Exit")) {
+                                    System.exit(0);
+                                }
+                                if (option.equals("Pickup")) {
+                                    System.out.println(confirmPickupMessage);
+                                } else if (option.equals("Delivery")) {
+                                    System.out.println("Please enter your address:");
+                                    option = scanner.nextLine();
+                                    DeliveryMaker.setDeliveryDetails(myOrder, option);
+                                    System.out.println(makeDeliveryChoiceMessage);
+                                    option = Handler.inputChecker(scanner, 13);
+                                    if (option.equals("Exit")) {
+                                        System.exit(0);
+                                    }
+                                    DeliveryMaker.makeDelivery(option);
+                                }
+                            }
                         }
                     }
                 }

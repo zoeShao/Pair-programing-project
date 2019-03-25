@@ -20,19 +20,26 @@ public class OrderUpdater {
         }
         if (option.equals("Pizza")) {
             updatePizza(scanner, myOrder);
+            myOrder.calculateTotalPrice();
         }
         if (option.equals("Drink")) {
             updateDrink(scanner, myOrder);
+            myOrder.calculateTotalPrice();
         }
     }
 
-    private static Integer pizzaNumberInputChecker(Scanner scanner) {
+    private static Integer pizzaNumberInputChecker(Scanner scanner, Order myOrder) {
         String option = scanner.nextLine();
         Integer outputNum = null;
         while (outputNum == null) {
             try {
                 Integer pizzaNum = Integer.parseInt(option);
-                outputNum = pizzaNum;
+                if (pizzaNum > myOrder.getPizzaList().size() || pizzaNum < 0) {
+                    System.out.println("Pizza number out of range. Please try again.");
+                    option = scanner.nextLine();
+                } else {
+                    outputNum = pizzaNum;
+                }
             } catch (Exception e) {
                 if (option.equals("Add")) {
                     outputNum = 0;
@@ -46,7 +53,7 @@ public class OrderUpdater {
     }
 
     private static void updatePizza(Scanner scanner, Order myOrder) {
-        System.out.println("Here is all you pizzas:");
+        System.out.println("Here is all your pizzas:");
         StringBuilder allPizza = new StringBuilder();
         myOrder.allPizzaToString(allPizza);
         System.out.println(allPizza.toString());
@@ -54,7 +61,7 @@ public class OrderUpdater {
         System.out.println("e.g. 1");
         System.out.println("If you want to add a new pizza, please enter Add.");
         System.out.println(exitMessage);
-        Integer pizzaNumber = pizzaNumberInputChecker(scanner);
+        Integer pizzaNumber = pizzaNumberInputChecker(scanner, myOrder);
         if (pizzaNumber == 0) {
             OrderMaker.orderPizza(scanner, myOrder);
             System.out.println("If you want to update anything else, please see the instructions below:");
@@ -112,9 +119,13 @@ public class OrderUpdater {
     }
 
     private static void updateDrink(Scanner scanner, Order myOrder) {
-        System.out.println("Which drink do you want to update? Please enter "
-                + Handler.convertSetToString(AllData.allDrinks) + ".");
-        System.out.println("Please use format: drink:quantity");
+        System.out.println("Here is all the drinks that you have ordered:");
+        StringBuilder allDrink = new StringBuilder();
+        myOrder.allDrinkToString(allDrink);
+        System.out.println(allDrink.toString());
+        System.out.println("You can update the quantity of any drinks that you have ordered or add new drinks.\n" +
+                "Please enter " + Handler.convertSetToString(AllData.allDrinks) + ".");
+        System.out.println("[Note]: Please use format: <drink:quantity>.");
         System.out.println("If you want to delete this drink, please enter drink:0");
         System.out.println(exitMessage);
         List<String> drinkToQuantity = Handler.getQuantity(scanner, 2);

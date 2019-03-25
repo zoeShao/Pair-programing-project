@@ -73,7 +73,7 @@ public class Pizza {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder(this.size + " " + this.type + "Pizza with: ");
+        StringBuilder string = new StringBuilder(this.size + " " + this.type + " Pizza with: ");
         for (String topping: this.toppingToQuantity.keySet()) {
             string.append(topping)
                     .append("*")

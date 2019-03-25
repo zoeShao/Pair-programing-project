@@ -97,7 +97,7 @@ public class OrderMaker {
 
     public static void orderDrink(Scanner scanner, Order myOrder) {
         String drinkOption = Handler.convertSetToString(AllData.allDrinks);
-        System.out.println("Please enter " + drinkOption + ":<quantity of the drink>");
+        System.out.println("Please enter with the format: <drink name(" + drinkOption + "):quantity of the drink(number)>");
         System.out.println("e.g. Coke:5");
         System.out.println(ExitInstruction);
         List<String> drinkToQuantity = Handler.getQuantity(scanner, 2);
