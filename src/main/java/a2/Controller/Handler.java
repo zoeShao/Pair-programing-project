@@ -1,6 +1,5 @@
 package a2.Controller;
 
-import a2.Model.Pizza;
 import a2.PizzaParlour;
 
 import java.util.*;
@@ -52,14 +51,12 @@ public class Handler {
                 break;
             case 8:
                 validInput.addAll(PizzaParlour.allToppings);
-                // version #1 (If use version #2, just comment it out the line below.)
                 validInput.add("End");
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
                 break;
             case 9:
                 validInput.addAll(PizzaParlour.allDrinks);
                 errorMessage = "Invalid Input. Please enter " + convertSetToString(validInput) + ".";
-                // version #1 (If use version #2, just comment it out the line below.)
                 validInput.add("End");
                 break;
             case 10:
@@ -95,10 +92,13 @@ public class Handler {
             System.out.println(errorMessage);
             option = scanner.nextLine();
         }
+        if (option.equals("Exit")) {
+            System.exit(0);
+        }
         return option;
     }
 
-    public static String convertSetToString(Set<String> inputSet) {
+    static String convertSetToString(Set<String> inputSet) {
         StringBuilder outputMessage = new StringBuilder();
         for (String element: inputSet) {
             outputMessage.append(element).append("/");
@@ -106,7 +106,7 @@ public class Handler {
         return outputMessage.substring(0, outputMessage.length()-1);
     }
 
-    public static List<String> inputParser(String input, Set<String> options) {
+    private static List<String> inputParser(String input, Set<String> options) {
         String optionMessage = Handler.convertSetToString(options);
         if (input.equals("Exit")){
             System.exit(0);
@@ -146,7 +146,7 @@ public class Handler {
         return paresedOutput;
     }
 
-    public static List<String> pizzaPriceInputParser(String sizeAndType) {
+    static List<String> pizzaPriceInputParser(String sizeAndType) {
         if (sizeAndType.equals("Exit")){
             System.exit(0);
         }
@@ -174,7 +174,7 @@ public class Handler {
         return parsedOutput;
     }
 
-    public static List<String> getQuantity(Scanner scanner, int flag){
+    static List<String> getQuantity(Scanner scanner, int flag){
         Set<String> inputSet;
         switch (flag) {
             case 1:
