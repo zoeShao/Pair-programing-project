@@ -4,39 +4,31 @@ import a2.Model.Order;
 import a2.Model.Pizza;
 import a2.PizzaParlour;
 import com.opencsv.CSVReader;
-import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ParlourFileReader {
+
     public static void readPizzaRecipe(String fileName){
         Map<String, String> typeToRecipe = new HashMap<String, String>();
-        String line = null;
+        String line;
         try {
             FileReader fileReader = new FileReader(fileName);
-
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String pizzaType = "";
-
             while((line = bufferedReader.readLine()) != null) {
                 if (line.charAt(0) == '#') {
-                    // pizza type indicator
                     pizzaType = line.substring(1, line.length());
                     typeToRecipe.put(pizzaType, "");
                 } else {
-                    // recipe for a pizza type
                     String recipeLine = typeToRecipe.get(pizzaType) + line + "\n";
                     typeToRecipe.put(pizzaType, recipeLine);
                 }
             }
-
             bufferedReader.close();
         }
         catch(FileNotFoundException ex) {
@@ -46,18 +38,14 @@ public class ParlourFileReader {
         catch(IOException ex) {
             System.out.println(
                     "Error reading file '" + fileName + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
         }
         Pizza.pizzaTypeToRecipe = typeToRecipe;
         PizzaParlour.allTypes = typeToRecipe.keySet();
-//        return typeToRecipe;
     }
 
     public static void readPizzaTypeSizePrice(String fileName){
 
         Map<String, Map<String, Double>> pizzaTypeToSizeToPrice = new HashMap<String, Map<String, Double>>();
-
         try {
             FileReader fileReader = new FileReader(fileName);
             CSVReader reader = new CSVReader(fileReader);
@@ -79,16 +67,12 @@ public class ParlourFileReader {
         catch(IOException ex) {
             System.out.println(
                     "Error reading file '" + fileName + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
         }
         Order.pizzaTypeToSizeToPrice = pizzaTypeToSizeToPrice;
-//        return pizzaTypeToSizeToPrice;
     }
 
     public static void readDrinkPrice(String fileName) {
         Map<String, Double> drinkToPrice = new HashMap<String, Double>();
-
         try {
             FileReader fileReader = new FileReader(fileName);
             CSVReader reader = new CSVReader(fileReader);
@@ -107,12 +91,10 @@ public class ParlourFileReader {
         catch(IOException ex) {
             System.out.println(
                     "Error reading file '" + fileName + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
+
         }
         Order.drinkToPrice = drinkToPrice;
         PizzaParlour.allDrinks = drinkToPrice.keySet();
-//        return drinkToPrice;
     }
 
     public static void readToppingPrice(String fileName) {
@@ -136,12 +118,9 @@ public class ParlourFileReader {
         catch(IOException ex) {
             System.out.println(
                     "Error reading file '" + fileName + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
         }
         Order.toppingToPrice = toppingToPrice;
         PizzaParlour.allToppings = toppingToPrice.keySet();
-//        return toppingToPrice;
     }
 
     private static Map<String, Double> sizeToPrice(String [] sizeList, String [] priceList) {
@@ -154,10 +133,7 @@ public class ParlourFileReader {
 
     private static void updatePizzaSizes(String [] sizes) {
         Set<String> allSizes = new HashSet<String>();
-        for (int i = 1; i < sizes.length; i++) {
-//            System.out.println(sizes[i]);
-            allSizes.add(sizes[i]);
-        }
+        allSizes.addAll(Arrays.asList(sizes).subList(1, sizes.length));
         PizzaParlour.allSizes = allSizes;
     }
 }

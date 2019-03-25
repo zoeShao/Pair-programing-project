@@ -24,8 +24,6 @@ public class OrderMaker {
             orderPizza(scanner, myOrder);
         } else if (option.equals("Drink")) {
             orderDrink(scanner,myOrder);
-        } else if (option.equals("Exit")){
-            System.exit(0);
         }
 
         System.out.println("What else do you want to order? Please enter Pizza or Drink.\n"
@@ -41,8 +39,6 @@ public class OrderMaker {
             } else if (option.equals("Drink")) {
                 orderDrink(scanner, myOrder);
 
-            } else if (option.equals("Exit")) {
-                System.exit(0);
             }
             System.out.println("What else do you want to order? Please enter Pizza or Drink.\n"
                     + "If you want to place the order, please enter Submit");
@@ -57,8 +53,6 @@ public class OrderMaker {
         String option = Handler.inputChecker(scanner, 2);
         if (PizzaParlour.allSizes.contains(option)) {
             pizzaBuilder.setSize(option);
-        } else if (option.equals("Exit")) {
-            System.exit(0);
         }
 
         System.out.println("What type do you want? Please enter " + typeOption + ".");
@@ -66,8 +60,6 @@ public class OrderMaker {
         option = Handler.inputChecker(scanner, 3);
         if (PizzaParlour.allTypes.contains(option)) {
             pizzaBuilder.setType(option);
-        } else if (option.equals("Exit")) {
-            System.exit(0);
         }
 
         System.out.println("Do you want to add toppings? Please enter Yes/No.");
@@ -89,8 +81,6 @@ public class OrderMaker {
             Pizza newPizza = pizzaBuilder.build();
             myOrder.addPizza(newPizza);
             System.out.println("[Notice]: You have added a pizza to cart.");
-        } else if (option.equals("Exit")) {
-            System.exit(0);
         }
     }
 
@@ -113,9 +103,7 @@ public class OrderMaker {
             System.out.println("Do you still want to see the price of a specific item? Please enter Yes/No.");
             System.out.println(ExitInstruction);
             option = Handler.inputChecker(scanner, 4);
-            if (option.equals("Exit")) {
-                System.exit(0);
-            }
+
             while (option.equals("Yes")) {
                 readItemPrice(scanner);
                 System.out.println("Do you still want to see the price of a specific item? Please enter Yes/No.");
@@ -125,8 +113,6 @@ public class OrderMaker {
         }
         if (option.equals("Full")) {
             System.out.println(Menu.getFullMenu());
-        } else if (option.equals("Exit")) {
-            System.exit(0);
         }
     }
 
@@ -163,8 +149,6 @@ public class OrderMaker {
             while (!option.equals("End")) {
                 if (PizzaParlour.allToppings.contains(option)) {
                     System.out.println(option + "'s Price is: " + Menu.getToppingPrice(option));
-                } else if (option.equals("Exit")) {
-                    System.exit(0);
                 }
                 System.out.println("(If you don't want to see topping's price anymore, just enter End.)\n" +
                         "Otherwise, please enter: <topping name> or just enter Exit to exit the program.");
@@ -180,15 +164,11 @@ public class OrderMaker {
             while (!option.equals("End")) {
                 if (PizzaParlour.allDrinks.contains(option)) {
                     System.out.println(option + "'s Price is: " + Menu.getDrinkPrice(option));
-                } else if (option.equals("Exit")) {
-                    System.exit(0);
                 }
                 System.out.println("(If you don't want to see drink's price anymore, just enter End.)\n" +
                         "Otherwise, please enter: <drink name> or just enter Exit to exit the program.");
                 option = Handler.inputChecker(scanner, 9);
             }
-        } else {
-            System.exit(0);
         }
     }
 }
