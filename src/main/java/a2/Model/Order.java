@@ -106,7 +106,7 @@ public class Order {
         newPizza =
             new Pizza.PizzaBuilder()
                 .setSize(pizza.getSize())
-                .setType(inputString)
+                .setType(pizza.getType())
                 .setToppings(pizza.getToppingToQuantity())
                 .updateToppings(inputString, inputNumber)
                 .build();
