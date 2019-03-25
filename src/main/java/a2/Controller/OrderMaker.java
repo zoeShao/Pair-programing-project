@@ -26,8 +26,9 @@ public class OrderMaker {
             orderDrink(scanner,myOrder);
         }
 
-        System.out.println("What else do you want to order? Please enter Pizza or Drink.\n"
-                + "If you want to place the order, please enter Submit");
+    System.out.println(
+        "What else do you want to order? Please enter Pizza or Drink.\n"
+            + "If you want to place the order, please enter Submit");
         System.out.println(MenuInstruction + "\n" + ExitInstruction);
         while (!(option = Handler.inputChecker(scanner, 0)).equals("Submit")) {
             if (option.equals("Menu")) {
