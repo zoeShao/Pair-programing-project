@@ -7,6 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class MenuTest {
+  Menu menu = new Menu();
   @Before
   public void init() {
     ParlourFileReader.readPizzaTypeSizePrice("src/main/Files/TestPizzaTypeSizePrice.csv");
@@ -33,6 +34,6 @@ public class MenuTest {
             + "- Drink Price:\n"
             + "\n"
             + "    Coke  =====================================  $10.0\n",
-        Menu.getFullMenu());
+            menu.getFullMenu());
   }
 }

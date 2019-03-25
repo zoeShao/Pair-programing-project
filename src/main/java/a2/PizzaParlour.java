@@ -12,6 +12,7 @@ public class PizzaParlour {
   public static Set<String> allSizes;
   public static Set<String> allTypes;
 
+
   public static void main(String[] args) {
     String filePath = "src/main/Files/";
     ParlourFileReader.readPizzaTypeSizePrice(filePath + "PizzaTypeSizePrice.csv");
