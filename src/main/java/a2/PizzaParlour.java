@@ -15,7 +15,6 @@ public class PizzaParlour {
         String filePath = "src/main/Files/";
         ParlourFileReader.readPizzaTypeSizePrice(filePath + "PizzaTypeSizePrice.csv");
         ParlourFileReader.readDrinkPrice(filePath + "DrinkPrice.csv");
-
         ParlourFileReader.readToppingPrice(filePath + "ToppingPrice.csv");
         ParlourFileReader.readPizzaRecipe(filePath + "Recipes.txt");
 
@@ -35,9 +34,7 @@ public class PizzaParlour {
                 + " please come to the store to pick up the food.";
 
         System.out.println("Welcome to 301 Pizza!: ");
-        System.out.println(orderMessgae);
-        System.out.println(menuMessage);
-        System.out.println(exitMessage);
+        System.out.println(orderMessgae + "\n" + menuMessage + "\n" + exitMessage);
         Scanner scanner = new Scanner(System.in);
         String option = Handler.inputChecker(scanner, 5);
         while (!option.equals("Exit")) {
@@ -52,29 +49,23 @@ public class PizzaParlour {
                     } else {
                         System.out.println("==========Here is your order==========");
                         System.out.println(myOrder);
-                        System.out.println("[Notice]: Order Submitted Successfully!!!");
+                        System.out.println("[Notice]: Order Submitted Successfully!!!\n");
 
-                        System.out.println(updateMessage);
-                        System.out.println(confirmMessage);
-                        System.out.println(cancelMessage);
+                        System.out.println(updateMessage + "\n" + confirmMessage + "\n" + cancelMessage);
                         System.out.println(exitMessage);
                         option = Handler.inputChecker(scanner, 10);
                         while (option.equals("Update")) {
                             OrderUpdater.updateOrder(scanner, myOrder);
                             System.out.println("==========Here is your updated order==========");
-                            System.out.println(myOrder);
+                            System.out.println(myOrder + "\n");
                             System.out.println("If you want to update anything else,"
                                     + " please see the instructions below:");
-                            System.out.println(updateMessage);
-                            System.out.println(confirmMessage);
-                            System.out.println(cancelMessage);
+                            System.out.println(updateMessage + "\n" + confirmMessage + "\n" + cancelMessage);
                             System.out.println(exitMessage);
                             option = Handler.inputChecker(scanner, 10);
                         }
                         if (option.equals("Cancel")) {
                             System.out.println("[Notice]: Your order has been canceled.");
-                        } else if (option.equals("Exit")) {
-                            System.exit(0);
                         } else if (option.equals("Confirm")) {
                             if (myOrder.getTotalPrice() == 0.0) {
                                 System.out.println("You haven't ordered anything. Please try again.");
@@ -82,14 +73,9 @@ public class PizzaParlour {
                                 System.out.println("==========Here is your final order==========");
                                 System.out.println(myOrder);
                                 System.out.println("Which way do you like, pickup or delivery?");
-                                System.out.println("[Notice]: Your order has been confirmed.");
-                                System.out.println(deliveryMessage);
-                                System.out.println(pickupMessage);
-                                System.out.println(exitMessage);
+                                System.out.println("[Notice]: Your order has been confirmed.\n");
+                                System.out.println(deliveryMessage + "\n" + pickupMessage + "\n" + "\n" + exitMessage);
                                 option = Handler.inputChecker(scanner, 12);
-                                if (option.equals("Exit")) {
-                                    System.exit(0);
-                                }
                                 if (option.equals("Pickup")) {
                                     System.out.println(confirmPickupMessage);
                                 } else if (option.equals("Delivery")) {
@@ -98,9 +84,6 @@ public class PizzaParlour {
                                     DeliveryMaker.setDeliveryDetails(myOrder, option);
                                     System.out.println(makeDeliveryChoiceMessage);
                                     option = Handler.inputChecker(scanner, 13);
-                                    if (option.equals("Exit")) {
-                                        System.exit(0);
-                                    }
                                     DeliveryMaker.makeDelivery(option);
                                 }
                             }
@@ -108,9 +91,7 @@ public class PizzaParlour {
                     }
                 }
                 System.out.println("\nWelcome to 301 Pizza! Want another order? Please follow the instruction below:");
-                System.out.println(orderMessgae);
-                System.out.println(menuMessage);
-                System.out.println(exitMessage);
+                System.out.println(orderMessgae + "\n" + menuMessage + "\n" + exitMessage);
                 option = Handler.inputChecker(scanner, 5);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
